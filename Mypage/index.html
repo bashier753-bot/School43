@@ -6,64 +6,216 @@
 <title>سِمُو | الثانوية الثالثة والأربعون</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --green:#174f45;
+  --green-2:#236b5d;
+  --green-3:#dfeee8;
+  --gold:#c59a4b;
+  --cream:#fbfaf5;
+  --text:#173f3a;
+  --muted:#657671;
+  --white:#fff;
+  --line:#e5ebe7;
+  --shadow:0 14px 40px rgba(23,79,69,.10);
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Cairo,Tahoma,Arial,sans-serif;background:#fff;color:#173f55;line-height:1.9}
+body{
+  font-family:Cairo,Tahoma,Arial,sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.9;
+}
 a{text-decoration:none;color:inherit}
-.header{position:fixed;top:0;right:0;left:0;height:70px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid #e7ecec;z-index:1000}
-.header-inner{max-width:1150px;height:100%;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:25px;font-weight:800;color:#164a66}
-.menu-btn{width:48px;height:43px;border:0;border-radius:12px;background:#164a66;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
+button{font:inherit}
+.header{
+  position:fixed;top:0;right:0;left:0;height:76px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(23,79,69,.08);
+  z-index:1000;
+}
+.header-inner{
+  max-width:1180px;height:100%;margin:auto;padding:0 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+}
+.logo{font-size:27px;font-weight:800;color:var(--green)}
+.menu-btn{
+  width:48px;height:44px;border:0;border-radius:13px;
+  background:var(--green);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:5px;cursor:pointer;
+}
 .menu-btn span{width:23px;height:2px;background:#fff;border-radius:3px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1100;opacity:0;visibility:hidden;transition:.25s}
 .overlay.show{opacity:1;visibility:visible}
-.drawer{position:fixed;right:-350px;top:0;width:330px;max-width:88vw;height:100vh;background:#fff;z-index:1200;padding:82px 28px 25px;box-shadow:-15px 0 45px rgba(0,0,0,.18);transition:.3s}
+.drawer{
+  position:fixed;right:-350px;top:0;width:330px;max-width:88vw;height:100vh;
+  background:#fff;z-index:1200;padding:82px 28px 25px;
+  box-shadow:-15px 0 45px rgba(0,0,0,.18);transition:.3s
+}
 .drawer.open{right:0}
-.drawer h3{margin-bottom:18px;color:#164a66}
-.drawer a{display:block;padding:13px 8px;border-bottom:1px solid #eee;font-weight:700;color:#234e62}
-.drawer a:hover,.drawer a.active{color:#4eaaa3}
-.close{position:absolute;top:18px;left:18px;border:0;border-radius:50%;width:38px;height:38px;background:#eef2f3;color:#164a66;font-size:24px;cursor:pointer}
-.page{display:none;min-height:100vh;padding-top:70px}
+.drawer h3{margin-bottom:18px;color:var(--green)}
+.drawer a{display:block;padding:13px 8px;border-bottom:1px solid #eee;font-weight:700;color:#234e48}
+.drawer a:hover,.drawer a.active{color:var(--green-2)}
+.close{position:absolute;top:18px;left:18px;border:0;border-radius:50%;width:38px;height:38px;background:#eef4f1;color:var(--green);font-size:24px;cursor:pointer}
+
+.page{display:none;min-height:100vh;padding-top:76px}
 .page.active{display:block}
-.hero{min-height:calc(100vh - 70px);padding:65px 20px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 15% 20%,rgba(85,170,164,.18),transparent 27%),radial-gradient(circle at 85% 75%,rgba(23,111,152,.12),transparent 30%),#fbfaf5}
-.hero-inner{max-width:950px}
-.badge{display:inline-block;padding:7px 20px;border-radius:50px;background:#e8f4f2;color:#267b82;font-weight:700;margin-bottom:22px}
-.hero-logo{width:min(700px,90vw);max-height:280px;object-fit:contain;display:block;margin:0 auto 10px}
-.simo{font-size:clamp(58px,11vw,110px);line-height:1;color:#174966;font-weight:800;letter-spacing:5px}
-.tagline{font-size:clamp(20px,3vw,32px);font-weight:700;color:#7a6230;margin:18px 0}
-.note{color:#60727b;font-size:15px;margin-bottom:28px}
-.btn{display:inline-block;padding:10px 22px;border-radius:30px;background:#164a66;color:white;font-weight:700}
-.section{padding:75px 20px}
-.container{max-width:1050px;margin:auto}
-.page-title{text-align:center;padding:65px 20px 40px;background:linear-gradient(135deg,#eaf5f2,#fbfaf5)}
-.page-title h1{font-size:45px;color:#174966}
-.page-title p{color:#5d7078}
-.card{background:#fff;border:1px solid #e8e5dc;border-radius:25px;padding:32px;box-shadow:0 12px 35px rgba(23,63,85,.08)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-.card h2,.card h3{color:#174966;margin-bottom:12px}
-.card p{color:#536871;margin:7px 0}
-.highlight{color:#267b82!important;font-weight:700}
-.image-card{overflow:hidden;padding:0}
-.image-card img{width:100%;height:360px;object-fit:cover;display:block}
-.image-card .text{padding:22px}
+
+/* HERO */
+.hero{
+  min-height:calc(100vh - 76px);
+  padding:55px 22px 60px;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 88% 15%,rgba(197,154,75,.15),transparent 23%),
+    radial-gradient(circle at 10% 80%,rgba(35,107,93,.12),transparent 25%),
+    linear-gradient(135deg,#f8faf7 0%,#f1f5ef 100%);
+  overflow:hidden;
+}
+.hero-inner{max-width:1180px;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-copy{text-align:right}
+.badge{
+  display:inline-flex;padding:7px 18px;border-radius:50px;
+  background:#e2eee9;color:var(--green);font-weight:700;margin-bottom:20px
+}
+.hero-logo{
+  width:210px;height:210px;object-fit:contain;display:block;margin:0 auto 8px;
+}
+.hero-copy h1{font-size:clamp(42px,5.5vw,72px);line-height:1.2;color:var(--green);font-weight:800;margin-bottom:15px}
+.hero-copy h1 span{color:var(--gold)}
+.hero-copy p{font-size:18px;color:var(--muted);max-width:650px;margin:0 0 24px auto}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:30px;background:var(--green);color:#fff;font-weight:700;
+  box-shadow:0 8px 20px rgba(23,79,69,.18);transition:.2s
+}
+.btn:hover{transform:translateY(-2px);background:var(--green-2)}
+.hero-visual{position:relative}
+.hero-photo{
+  width:100%;height:480px;object-fit:cover;border-radius:34px;
+  box-shadow:var(--shadow);display:block;
+}
+.hero-leaf{
+  position:absolute;left:-18px;bottom:-18px;width:125px;height:125px;
+  border:1px solid rgba(23,79,69,.15);border-radius:45% 55% 45% 55%;
+  background:rgba(255,255,255,.55);backdrop-filter:blur(5px);
+}
+.hero-dots{display:flex;gap:8px;justify-content:center;margin-top:17px}
+.hero-dots i{width:8px;height:8px;border-radius:50%;background:#c7d6d0}
+.hero-dots i.active{background:var(--green);width:25px;border-radius:20px}
+
+/* common */
+.section{padding:82px 20px}
+.container{max-width:1120px;margin:auto}
+.section-head{text-align:center;margin-bottom:42px}
+.eyebrow{color:var(--gold);font-weight:800;font-size:15px}
+.section-head h2{font-size:40px;color:var(--green);margin:2px 0 8px}
+.section-head p{color:var(--muted);max-width:650px;margin:auto}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+.about-photo{width:100%;height:370px;object-fit:cover;border-radius:28px;box-shadow:var(--shadow)}
+.about-copy h2{font-size:38px;color:var(--green);margin-bottom:12px}
+.about-copy p{color:var(--muted);margin-bottom:16px}
+.feature-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.feature{
+  padding:15px;border:1px solid var(--line);border-radius:17px;
+  background:#fff;text-align:center;box-shadow:0 8px 24px rgba(23,79,69,.05)
+}
+.feature-icon{font-size:24px;color:var(--gold);display:block;margin-bottom:3px}
+.feature strong{font-size:13px;color:var(--green)}
+
+.impact{background:#edf5f1}
+.impact-grid{display:grid;grid-template-columns:1fr 170px 1fr;gap:20px;align-items:center}
+.impact-card{
+  background:#fff;border:1px solid #e4e8e3;border-radius:24px;
+  padding:28px;min-height:190px;box-shadow:0 12px 30px rgba(23,79,69,.06)
+}
+.impact-card h3{color:var(--green);font-size:22px;margin-bottom:8px}
+.impact-card p{color:var(--muted)}
+.impact-logo{width:155px;height:155px;object-fit:contain;margin:auto;display:block}
+
+.initiatives{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.initiative{
+  overflow:hidden;background:#fff;border:1px solid var(--line);
+  border-radius:22px;box-shadow:0 12px 30px rgba(23,79,69,.07)
+}
+.initiative img{width:100%;height:175px;object-fit:cover;display:block}
+.initiative-body{padding:18px}
+.initiative-body h3{font-size:18px;color:var(--green);margin-bottom:7px}
+.initiative-body p{font-size:13px;color:var(--muted)}
+.initiative-link{display:inline-flex;margin-top:10px;color:var(--gold);font-weight:800}
+
+.gallery-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+.gallery-main{width:100%;height:300px;object-fit:cover;border-radius:25px}
+.gallery-small{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.gallery-small img{width:100%;height:143px;object-fit:cover;border-radius:18px}
+
+.stats{
+  background:var(--green);color:#fff;border-radius:30px;padding:35px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;
+}
+.stat{padding:5px 15px;border-left:1px solid rgba(255,255,255,.2)}
+.stat:last-child{border-left:0}
+.stat strong{display:block;font-size:34px;color:#fff}
+.stat span{color:#d8e7e2;font-size:13px}
+
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.quote{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:22px;box-shadow:0 10px 28px rgba(23,79,69,.06)
+}
+.quote p{color:var(--muted);font-size:14px}
+.quote b{display:block;margin-top:12px;color:var(--green);font-size:12px}
+
+.page-title{
+  text-align:center;padding:72px 20px 45px;
+  background:linear-gradient(135deg,#e8f2ee,#fbfaf5)
+}
+.page-title h1{font-size:45px;color:var(--green)}
+.page-title p{color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:25px;padding:32px;box-shadow:var(--shadow)}
+.grid,.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card h2,.card h3{color:var(--green);margin-bottom:12px}
+.card p{color:var(--muted);margin:7px 0}
+.highlight{color:var(--green-2)!important;font-weight:800}
+.page-logo{display:block;width:500px;height:500px;max-width:90vw;object-fit:contain;margin:25px auto 0}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,.09)}
-footer{background:#123f56;color:#fff;text-align:center;padding:30px 20px}
-footer p{margin:4px}
-@media(max-width:750px){.grid,.cards{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.page-title h1{font-size:35px}}
-@media(max-width:480px){.gallery{grid-template-columns:1fr}.section{padding:55px 16px}}
 
-.page-logo{
-  display:block !important;
-  width:500px;
-  height:500px;
-  max-width:90vw;
-  object-fit:contain;
-  margin-left:auto !important;
-  margin-right:auto !important;
-  margin-top:0;
-  margin-bottom:20px;
+footer{background:#103f38;color:#fff;padding:38px 20px 24px}
+.footer-inner{max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.footer-brand{font-size:24px;font-weight:800}
+.footer-brand small{display:block;font-size:11px;color:#c9ded8;font-weight:500}
+.footer-nav{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;font-size:13px;color:#d7e7e2}
+.footer-bottom{text-align:center;margin-top:25px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:#b9d0ca}
+
+@media(max-width:900px){
+  .hero-inner,.two-col,.gallery-wrap{grid-template-columns:1fr}
+  .hero-copy{text-align:center;order:1}
+  .hero-visual{order:2}
+  .hero-copy p{margin:0 auto 24px}
+  .hero-logo{width:180px;height:180px}
+  .initiatives{grid-template-columns:repeat(2,1fr)}
+  .impact-grid{grid-template-columns:1fr}
+  .impact-logo{width:125px;height:125px}
+}
+@media(max-width:650px){
+  .header{height:68px}.page{padding-top:68px}
+  .hero{min-height:auto;padding:38px 16px 48px}
+  .hero-photo{height:300px;border-radius:24px}
+  .hero-copy h1{font-size:40px}
+  .section{padding:58px 16px}
+  .section-head h2,.about-copy h2{font-size:32px}
+  .feature-list{grid-template-columns:1fr}
+  .initiatives,.grid,.cards,.testimonials{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr);padding:24px 15px}
+  .stat{border-left:0;border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:16px}
+  .stat:nth-last-child(-n+2){border-bottom:0}
+  .gallery-small img{height:120px}
+  .footer-inner{flex-direction:column;text-align:center}
+  .page-title h1{font-size:35px}
 }
 </style>
 </head>
@@ -95,15 +247,126 @@ footer p{margin:4px}
 <!-- الرئيسية -->
 <section class="page active" id="page-home">
 <div class="hero">
-<div class="hero-inner">
-<div class="badge">الثانوية الثالثة والأربعون</div>
-<img class="hero-logo" src="logo.png" alt="الثانوية الثالثة والأربعون">
-<div class="simo">سِــــــــــــمُو </div>
-<div class="tagline">رؤية وبناء .. من فكرة الى إنجاز</div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="badge">الثانوية الثالثة والأربعون</div>
+      <img class="hero-logo" src="img1.png" alt="نبني أثر">
+      <h1>معًا نصنع <span>أثرًا</span> مستدامًا</h1>
+      <p>مبادرة تعليمية تصنع القيم، وتطوّر المهارات، وتترك أثرًا إيجابيًا في مجتمعنا.</p>
+      <a class="btn" href="#about" onclick="showPage('about')">اكتشفي المزيد ←</a>
+      <div class="hero-dots"><i class="active"></i><i></i><i></i></div>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-photo" src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="من أنشطة المدرسة">
+      <div class="hero-leaf"></div>
+    </div>
+  </div>
+</div>
 
-<a class="btn" href="#about" onclick="showPage('about')">اكتشفي الموقع</a>
+<section class="section" id="about-home">
+<div class="container">
+  <div class="two-col">
+    <img class="about-photo" src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="من المدرسة">
+    <div class="about-copy">
+      <div class="eyebrow">عن سِمُو</div>
+      <h2>من نحن؟</h2>
+      <p>سمو هي مبادرة طلابية في الثانوية الثالثة والأربعين، تهدف إلى تعزيز القيم، وتنمية المهارات، وصناعة أثر إيجابي في مجتمعنا من خلال مبادرات تعليمية وتطوعية ومجتمعية.</p>
+      <div class="feature-list">
+        <div class="feature"><span class="feature-icon">✦</span><strong>تعزيز القيم</strong></div>
+        <div class="feature"><span class="feature-icon">♣</span><strong>تنمية المهارات</strong></div>
+        <div class="feature"><span class="feature-icon">★</span><strong>صناعة أثر</strong></div>
+      </div>
+      <a class="btn" href="#about" onclick="showPage('about')">اعرفي أكثر ←</a>
+    </div>
+  </div>
 </div>
+</section>
+
+<section class="section impact">
+<div class="container">
+  <div class="section-head">
+    <div class="eyebrow">قيم راسخة • تعليم متميز</div>
+    <h2>نبني أثر</h2>
+    <p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card"><h3>الأثر</h3><p>نسعى من خلال المبادرات والأنشطة إلى تحويل الأفكار التعليمية إلى ممارسات وتجارب تترك أثرًا مستمرًا.</p></div>
+    <img class="impact-logo" src="img1.png" alt="نبني أثر">
+    <div class="impact-card"><h3>نبي أثر</h3><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p><p class="highlight">أثر اليوم إنجاز الغد ←</p></div>
+  </div>
 </div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="section-head">
+    <div class="eyebrow">مبادرات متنوعة تصنع فرقًا</div>
+    <h2>أبرز المبادرات</h2>
+    <p>نماذج من البرامج والأنشطة التي تجمع بين التعلم والتطبيق والأثر.</p>
+  </div>
+  <div class="initiatives">
+    <article class="initiative">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="مبادرة">
+      <div class="initiative-body"><h3>نحو علو وتمكين</h3><p>مبادرة مجتمعية لدعم التميز والتمكين ورفع نواتج التعلم.</p><a class="initiative-link" href="#initiatives" onclick="showPage('initiatives')">اعرفي المزيد →</a></div>
+    </article>
+    <article class="initiative">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="نشاط">
+      <div class="initiative-body"><h3>النسب في حياتنا</h3><p>ربط المفاهيم الرياضية بالحياة اليومية والمواقف الواقعية.</p><a class="initiative-link" href="#initiatives" onclick="showPage('initiatives')">اعرفي المزيد →</a></div>
+    </article>
+    <article class="initiative">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="مشروع">
+      <div class="initiative-body"><h3>الواقع المعزز في التعليم</h3><p>توظيف التقنية والواقع المعزز بطريقة تخدم العملية التعليمية.</p><a class="initiative-link" href="#initiatives" onclick="showPage('initiatives')">اعرفي المزيد →</a></div>
+    </article>
+    <article class="initiative">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="مبادرة">
+      <div class="initiative-body"><h3>مبادرات تعليمية</h3><p>مساحات تجمع التعلم والمشاركة والتطبيق العملي.</p><a class="initiative-link" href="#gallery" onclick="showPage('gallery')">شاهدِي الصور →</a></div>
+    </article>
+  </div>
+</div>
+</section>
+
+<section class="section" style="padding-top:20px">
+<div class="container">
+  <div class="gallery-wrap">
+    <div>
+      <div class="section-head" style="text-align:right;margin-bottom:20px">
+        <div class="eyebrow">لحظات من إنجازاتنا</div>
+        <h2>معرض الصور</h2>
+        <p>لقطات من الأنشطة والمبادرات والفعاليات.</p>
+      </div>
+      <a class="btn" href="#gallery" onclick="showPage('gallery')">عرض المعرض ←</a>
+    </div>
+    <div class="gallery-small">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="صورة نشاط">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="صورة نشاط">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="صورة نشاط">
+      <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="صورة نشاط">
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section" style="padding-top:10px">
+<div class="container">
+  <div class="stats">
+    <div class="stat"><strong>+200</strong><span>مستفيد ومستفيدة</span></div>
+    <div class="stat"><strong>+15</strong><span>مبادرة منفذة</span></div>
+    <div class="stat"><strong>+30</strong><span>شريك داعم</span></div>
+    <div class="stat"><strong>+3</strong><span>سنوات من العطاء</span></div>
+  </div>
+</div>
+</section>
+
+<section class="section" style="padding-top:45px">
+<div class="container">
+  <div class="section-head"><div class="eyebrow">ماذا يقولون عنا؟</div><h2>آراء المشاركات</h2></div>
+  <div class="testimonials">
+    <div class="quote"><p>“تجربة جميلة ومختلفة، ساعدتني على اكتشاف مهارات جديدة وصناعة أثر.”</p><b>طالبة • الثانوية الثالثة والأربعون</b></div>
+    <div class="quote"><p>“من أجمل المبادرات التي شاركت فيها، جمعت بين التعلم والعمل والمشاركة.”</p><b>طالبة • الثانوية الثالثة والأربعون</b></div>
+    <div class="quote"><p>“سمو مساحة تعطي لكل فكرة فرصة وتحوّلها إلى تجربة حقيقية في المجتمع.”</p><b>طالبة • الثانوية الثالثة والأربعون</b></div>
+  </div>
+</div>
+</section>
 </section>
 
 <!-- عن سمو -->
@@ -123,7 +386,7 @@ footer p{margin:4px}
 
 <!-- نبي أثر -->
 <section class="page" id="page-impact">
-<img class="page-logo" src="img1.png" height="500" width="500" alt="الثانوية الثالثة والأربعون">
+<img class="page-logo" src="img1.png" alt="نبني أثر">
 <div class="page-title"><h1>نبني أثر</h1><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر</p></div>
 <div class="section"><div class="container">
 <div class="cards">
@@ -178,8 +441,18 @@ footer p{margin:4px}
 </section>
 
 <footer>
-<p>سِمُو — رؤية وبناء .. من فكرة الى إنجاز</p>
-<p>الثانوية الثالثة والأربعون</p>
+<div class="footer-inner">
+  <div class="footer-brand">نبني أثر<small>NABNY ATHAR</small></div>
+  <div class="footer-nav">
+    <a href="#home" onclick="showPage('home')">الرئيسية</a>
+    <a href="#about" onclick="showPage('about')">عن سِمُو</a>
+    <a href="#impact" onclick="showPage('impact')">نبني أثر</a>
+    <a href="#initiatives" onclick="showPage('initiatives')">المبادرات</a>
+    <a href="#gallery" onclick="showPage('gallery')">معرض الصور</a>
+  </div>
+  <div>معًا نصنع أثرًا مستدامًا ✦</div>
+</div>
+<div class="footer-bottom">الثانوية الثالثة والأربعون — جميع الحقوق محفوظة 2026</div>
 </footer>
 
 <script>

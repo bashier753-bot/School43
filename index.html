@@ -5,72 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سِمُو | الثانوية الثالثة والأربعون</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Cairo',Arial,sans-serif;background:#fbf8f0;color:#123f56;line-height:1.8}
-.site-header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.1)}
-.header-container{max-width:1200px;height:85px;margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between}
-.logo,.logo img{width:68px;height:68px}.logo{display:flex;align-items:center;justify-content:center;text-decoration:none}
-.logo img{object-fit:contain;border-radius:50%}
-.site-title{text-align:center;line-height:1.35}.site-title span{display:block;font-size:13px;color:#557080}
-.site-title strong{display:block;font-size:27px;color:#123f56;font-weight:800}
-.menu-btn{width:46px;height:46px;border:0;border-radius:12px;background:#123f56;color:#fff;font-size:25px;cursor:pointer}
-.hero{min-height:calc(100vh - 85px);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px;background:radial-gradient(circle at 20% 20%,rgba(85,170,164,.18),transparent 30%),radial-gradient(circle at 80% 70%,rgba(198,155,59,.15),transparent 30%),#fbf8f0}
-.hero-content{max-width:850px}.badge{display:inline-block;padding:7px 18px;margin-bottom:20px;border-radius:30px;background:#e8f2f0;color:#176f98;font-size:14px;font-weight:700}
-.hero h1{font-size:clamp(42px,8vw,82px);line-height:1.1;color:#123f56;margin-bottom:12px;font-weight:800}
-.hero h2{font-size:clamp(20px,4vw,34px);color:#176f98;margin-bottom:18px}.hero p{font-size:clamp(16px,2.5vw,21px);color:#557080;margin-bottom:32px}
-.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{text-decoration:none;padding:12px 25px;border-radius:12px;font-weight:700}
-.btn-primary{background:#123f56;color:#fff}.btn-secondary{background:#fff;color:#123f56;border:1px solid #d8e1e4}
-.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:.25s;z-index:1998}
-.menu-overlay.active{opacity:1;visibility:visible}.drawer{position:fixed;top:0;right:-330px;width:320px;max-width:85%;height:100vh;background:#fff;z-index:1999;padding:30px 24px;box-shadow:-8px 0 30px rgba(0,0,0,.15);transition:.3s}
-.drawer.active{right:0}.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
-.drawer-logo{width:55px;height:55px;object-fit:contain;border-radius:50%}.close-btn{border:0;background:#f1f4f5;color:#123f56;width:42px;height:42px;border-radius:10px;font-size:22px;cursor:pointer}
-.drawer nav a{display:block;text-decoration:none;color:#123f56;padding:13px 15px;border-radius:10px;margin-bottom:7px;font-weight:600}
-.drawer nav a:hover,.drawer nav a.active{background:#e8f2f0;color:#176f98}
-.info{max-width:1000px;margin:auto;padding:70px 20px}.info h2{text-align:center;margin-bottom:25px;font-size:32px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.card{background:#fff;border-radius:18px;padding:25px;box-shadow:0 5px 20px rgba(18,63,86,.08);text-align:center}
-.card h3{margin-bottom:8px}footer{text-align:center;padding:25px 15px;background:#123f56;color:#fff;font-size:13px}
-@media(max-width:600px){.header-container{height:75px}.logo,.logo img{width:55px;height:55px}.site-title strong{font-size:22px}.site-title span{font-size:11px}.menu-btn{width:42px;height:42px;font-size:22px}}
+body{font-family:Arial,Tahoma,sans-serif;background:#fbf8f0;color:#123f56}
+header{height:85px;background:#fff;box-shadow:0 2px 12px #0002;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;z-index:10}
+.logo{width:65px;height:65px;object-fit:contain;border-radius:50%}
+.title{text-align:center}.title small{display:block;color:#557080;font-size:13px}.title b{font-size:28px}
+.menu{width:45px;height:45px;border:0;border-radius:10px;background:#123f56;color:#fff;font-size:24px}
+.hero{min-height:calc(100vh - 85px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+.hero h1{font-size:80px;margin-bottom:10px}.hero h2{color:#176f98;font-size:28px;margin-bottom:20px}
+.hero p{font-size:19px;color:#557080;max-width:700px;line-height:2;margin:auto}
+.btn{display:inline-block;margin-top:30px;padding:13px 28px;border-radius:12px;background:#123f56;color:white;text-decoration:none;font-weight:bold}
+.drawer{position:fixed;right:-330px;top:0;width:320px;height:100vh;background:white;z-index:30;padding:30px;box-shadow:-5px 0 25px #0003;transition:.3s}
+.drawer.open{right:0}.drawer img{width:60px;height:60px;object-fit:contain}
+.close{float:left;border:0;background:#eee;border-radius:8px;width:40px;height:40px;font-size:24px}
+nav{clear:both;padding-top:35px}nav a{display:block;text-decoration:none;color:#123f56;padding:14px;border-radius:10px;margin:6px 0;font-weight:bold}
+nav a:hover{background:#e8f2f0;color:#176f98}
+.overlay{position:fixed;inset:0;background:#0007;z-index:20;display:none}.overlay.open{display:block}
+footer{text-align:center;background:#123f56;color:#fff;padding:20px}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-container">
-<a href="index.html" class="logo"><img src="images/logo1.jpg" alt="شعار الثانوية الثالثة والأربعون"></a>
-<div class="site-title"><span>الثانوية الثالثة والأربعون</span><strong>سِمُو</strong></div>
-<button class="menu-btn" onclick="openMenu()">☰</button>
-</div></header>
-
-<div class="menu-overlay" id="overlay" onclick="closeMenu()"></div>
-<aside class="drawer" id="drawer"><div class="drawer-head">
-<img src="Images/logo1.jpg" class="drawer-logo" alt="شعار المدرسة">
-<button class="close-btn" onclick="closeMenu()">×</button></div>
+<header>
+<a href="index.html"><img class="logo" src="Images/logo1.jpg" alt="شعار سِمُو"></a>
+<div class="title"><small>الثانوية الثالثة والأربعون</small><b>سِمُو</b></div>
+<button class="menu" onclick="openMenu()">☰</button>
+</header>
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+<aside id="drawer" class="drawer">
+<button class="close" onclick="closeMenu()">×</button>
+<img src="Images/logo1.jpg" alt="شعار سِمُو">
 <nav>
-<a href="index.html" class="active">الرئيسية</a>
+<a href="index.html">الرئيسية</a>
 <a href="about.html">عن سِمُو</a>
 <a href="impact.html">نبي أثر</a>
 <a href="initiatives.html">المبادرات</a>
 <a href="gallery.html">معرض الأنشطة</a>
 <a href="contact.html">معلومات الموقع</a>
-</nav></aside>
-
-<main>
-<section class="hero"><div class="hero-content">
-<span class="badge">الثانوية الثالثة والأربعون</span>
+</nav>
+</aside>
+<main><section class="hero"><div>
 <h1>سِمُو</h1>
 <h2>رؤية وبناء .. من فكرة إلى إنجاز</h2>
-<p>منصة تعليمية تجمع وتوثق الأنشطة والمبادرات ونواتج التعلّم، لإبراز التميز والإبداع وبناء بيئة تعليمية محفزة.</p>
-<div class="buttons"><a href="about.html" class="btn btn-primary">اكتشفي سِمُو</a><a href="gallery.html" class="btn btn-secondary">معرض الأنشطة</a></div>
-</div></section>
-<section class="info"><h2>مرحبًا بكم في سِمُو</h2><div class="cards">
-<div class="card"><h3>نبي أثر</h3><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p></div>
-<div class="card"><h3>المبادرات</h3><p>مشاريع وأنشطة تعليمية تسهم في التمكين والإبداع.</p></div>
-<div class="card"><h3>الأنشطة</h3><p>مساحة لتوثيق أبرز الأنشطة والفعاليات المدرسية.</p></div>
-</div></section>
-</main>
+<p>الثانوية الثالثة والأربعون — منصة تعليمية لإبراز التميز والإبداع وتوثيق الأنشطة والمبادرات.</p>
+<a class="btn" href="about.html">اكتشفي سِمُو</a>
+</div></section></main>
 <footer>الثانوية الثالثة والأربعون — سِمُو</footer>
 <script>
-function openMenu(){document.getElementById('drawer').classList.add('active');document.getElementById('overlay').classList.add('active')}
-function closeMenu(){document.getElementById('drawer').classList.remove('active');document.getElementById('overlay').classList.remove('active')}
+function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('open')}
+function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
 </script>
 </body>
 </html>

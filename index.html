@@ -5,54 +5,195 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سِمُو | الثانوية الثالثة والأربعون</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Tahoma,sans-serif;background:#fbf8f0;color:#123f56}
-header{height:85px;background:#fff;box-shadow:0 2px 12px #0002;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;z-index:10}
-.logo{width:65px;height:65px;object-fit:contain;border-radius:50%}
-.title{text-align:center}.title small{display:block;color:#557080;font-size:13px}.title b{font-size:28px}
-.menu{width:45px;height:45px;border:0;border-radius:10px;background:#123f56;color:#fff;font-size:24px}
-.hero{min-height:calc(100vh - 85px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
-.hero h1{font-size:80px;margin-bottom:10px}.hero h2{color:#176f98;font-size:28px;margin-bottom:20px}
-.hero p{font-size:19px;color:#557080;max-width:700px;line-height:2;margin:auto}
-.btn{display:inline-block;margin-top:30px;padding:13px 28px;border-radius:12px;background:#123f56;color:white;text-decoration:none;font-weight:bold}
-.drawer{position:fixed;right:-330px;top:0;width:320px;height:100vh;background:white;z-index:30;padding:30px;box-shadow:-5px 0 25px #0003;transition:.3s}
-.drawer.open{right:0}.drawer img{width:60px;height:60px;object-fit:contain}
-.close{float:left;border:0;background:#eee;border-radius:8px;width:40px;height:40px;font-size:24px}
-nav{clear:both;padding-top:35px}nav a{display:block;text-decoration:none;color:#123f56;padding:14px;border-radius:10px;margin:6px 0;font-weight:bold}
-nav a:hover{background:#e8f2f0;color:#176f98}
-.overlay{position:fixed;inset:0;background:#0007;z-index:20;display:none}.overlay.open{display:block}
-footer{text-align:center;background:#123f56;color:#fff;padding:20px}
+html{scroll-behavior:smooth}
+body{font-family:Cairo,Tahoma,Arial,sans-serif;background:#fff;color:#173f55;line-height:1.9}
+a{text-decoration:none;color:inherit}
+.header{position:fixed;top:0;right:0;left:0;height:70px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid #e7ecec;z-index:1000}
+.header-inner{max-width:1150px;height:100%;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:25px;font-weight:800;color:#164a66}
+.menu-btn{width:48px;height:43px;border:0;border-radius:12px;background:#164a66;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
+.menu-btn span{width:23px;height:2px;background:#fff;border-radius:3px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1100;opacity:0;visibility:hidden;transition:.25s}
+.overlay.show{opacity:1;visibility:visible}
+.drawer{position:fixed;right:-350px;top:0;width:330px;max-width:88vw;height:100vh;background:#fff;z-index:1200;padding:82px 28px 25px;box-shadow:-15px 0 45px rgba(0,0,0,.18);transition:.3s}
+.drawer.open{right:0}
+.drawer h3{margin-bottom:18px;color:#164a66}
+.drawer a{display:block;padding:13px 8px;border-bottom:1px solid #eee;font-weight:700;color:#234e62}
+.drawer a:hover,.drawer a.active{color:#4eaaa3}
+.close{position:absolute;top:18px;left:18px;border:0;border-radius:50%;width:38px;height:38px;background:#eef2f3;color:#164a66;font-size:24px;cursor:pointer}
+.page{display:none;min-height:100vh;padding-top:70px}
+.page.active{display:block}
+.hero{min-height:calc(100vh - 70px);padding:65px 20px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 15% 20%,rgba(85,170,164,.18),transparent 27%),radial-gradient(circle at 85% 75%,rgba(23,111,152,.12),transparent 30%),#fbfaf5}
+.hero-inner{max-width:950px}
+.badge{display:inline-block;padding:7px 20px;border-radius:50px;background:#e8f4f2;color:#267b82;font-weight:700;margin-bottom:22px}
+.hero-logo{width:min(700px,90vw);max-height:280px;object-fit:contain;display:block;margin:0 auto 10px}
+.simo{font-size:clamp(58px,11vw,110px);line-height:1;color:#174966;font-weight:800;letter-spacing:5px}
+.tagline{font-size:clamp(20px,3vw,32px);font-weight:700;color:#7a6230;margin:18px 0}
+.note{color:#60727b;font-size:15px;margin-bottom:28px}
+.btn{display:inline-block;padding:10px 22px;border-radius:30px;background:#164a66;color:white;font-weight:700}
+.section{padding:75px 20px}
+.container{max-width:1050px;margin:auto}
+.page-title{text-align:center;padding:65px 20px 40px;background:linear-gradient(135deg,#eaf5f2,#fbfaf5)}
+.page-title h1{font-size:45px;color:#174966}
+.page-title p{color:#5d7078}
+.card{background:#fff;border:1px solid #e8e5dc;border-radius:25px;padding:32px;box-shadow:0 12px 35px rgba(23,63,85,.08)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.card h2,.card h3{color:#174966;margin-bottom:12px}
+.card p{color:#536871;margin:7px 0}
+.highlight{color:#267b82!important;font-weight:700}
+.image-card{overflow:hidden;padding:0}
+.image-card img{width:100%;height:360px;object-fit:cover;display:block}
+.image-card .text{padding:22px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,.09)}
+footer{background:#123f56;color:#fff;text-align:center;padding:30px 20px}
+footer p{margin:4px}
+@media(max-width:750px){.grid,.cards{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.page-title h1{font-size:35px}}
+@media(max-width:480px){.gallery{grid-template-columns:1fr}.section{padding:55px 16px}}
 </style>
 </head>
 <body>
-<header>
-<a href="index.html"><img class="logo" src="Images/logo1.jpg" alt="شعار سِمُو"></a>
-<div class="title"><small>الثانوية الثالثة والأربعون</small><b>سِمُو</b></div>
-<button class="menu" onclick="openMenu()">☰</button>
+
+<header class="header">
+<div class="header-inner">
+<a href="#home" class="logo" onclick="showPage('home')">سِمُو</a>
+<button class="menu-btn" onclick="openMenu()" aria-label="القائمة"><span></span><span></span><span></span></button>
+</div>
 </header>
-<div id="overlay" class="overlay" onclick="closeMenu()"></div>
-<aside id="drawer" class="drawer">
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<aside class="drawer" id="drawer">
 <button class="close" onclick="closeMenu()">×</button>
-<img src="Images/logo1.jpg" alt="شعار سِمُو">
-<nav>
-<a href="index.html">الرئيسية</a>
-<a href="about.html">عن سِمُو</a>
-<a href="impact.html">نبي أثر</a>
-<a href="initiatives.html">المبادرات</a>
-<a href="gallery.html">معرض الأنشطة</a>
-<a href="contact.html">معلومات الموقع</a>
-</nav>
+<h3>القائمة</h3>
+<a href="#home" data-page="home" onclick="showPage('home')">الرئيسية</a>
+<a href="#about" data-page="about" onclick="showPage('about')">عن سِمُو</a>
+<a href="#impact" data-page="impact" onclick="showPage('impact')">نبي أثر</a>
+<a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">المبادرات</a>
+<a href="#gallery" data-page="gallery" onclick="showPage('gallery')">معرض الأنشطة</a>
+<a href="#contact" data-page="contact" onclick="showPage('contact')">معلومات الموقع</a>
 </aside>
-<main><section class="hero"><div>
-<h1>سِمُو</h1>
-<h2>رؤية وبناء .. من فكرة إلى إنجاز</h2>
-<p>الثانوية الثالثة والأربعون — منصة تعليمية لإبراز التميز والإبداع وتوثيق الأنشطة والمبادرات.</p>
-<a class="btn" href="about.html">اكتشفي سِمُو</a>
-</div></section></main>
-<footer>الثانوية الثالثة والأربعون — سِمُو</footer>
+
+<!-- الرئيسية -->
+<section class="page active" id="page-home">
+<div class="hero">
+<div class="hero-inner">
+<div class="badge">الثانوية الثالثة والأربعون</div>
+<img class="hero-logo" src="https://sites.google.com/sitesv-images-rt/AMxu72v0Xo7qorjeuqfgUpZQH2o4fYPGOYD0QqerKL3SDEgiUB_uECuSTGBH61U72J0fiPBW0ArNQPbqpnlTzRmDpKbt7z9YevvQ5JT-CSECl8hPK4qGDGYQXQbFtiZNsNCagg1ZqOx3MIUKmOOMwxWE8–w7qvQSWJbn6lka17cvbaA8cPKkcM-6QplKcwaTUXzrTngHmMqVxXt1UH6dEzhH2Lmt3BCDjeNGgJdo0AV%3Dw1280" alt="الثانوية الثالثة والأربعون">
+<div class="simo">سِــــــــــــمُــ</div>
+<div class="tagline">رؤية وبناء .. من فكرة الى إنجاز</div>
+<div class="note">ملاحظة : لعرض الموقع بوضوح اجعلي الشاشة بشكل أفقي</div>
+<a class="btn" href="#about" onclick="showPage('about')">اكتشفي الموقع</a>
+</div>
+</div>
+</section>
+
+<!-- عن سمو -->
+<section class="page" id="page-about">
+<div class="page-title"><h1>عن سِمُو</h1><p>رؤية وبناء .. من فكرة الى إنجاز</p></div>
+<div class="section"><div class="container">
+<div class="card">
+<h2>سِمُو</h2>
+<p>سمو منصة تعليمية مبتكرة تُعنى بتجميع وتوثيق الأنشطة والمبادرات ونواتج التعلّم للطالبات،</p>
+<p>بهدف إبراز التميّز، وتعزيز الإبداع، وبناء بيئة تعليمية محفّزة تدعم النمو والتطوّر المستمر.</p>
+<p class="highlight">الموقع خاص فقط بـ الثانوية الثالثة والاربعون فقط</p>
+<p>الموقع تصميم الاستاذة : <strong>بشاير الغامدي - ريما الغامدي</strong></p>
+<p>اشراف ومتابعة مديرة المدرسة : <strong>حنان الحربي</strong></p>
+</div>
+</div></div>
+</section>
+
+<!-- نبي أثر -->
+<section class="page" id="page-impact">
+<div class="page-title"><h1>نبي أثر</h1><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر</p></div>
+<div class="section"><div class="container">
+<div class="cards">
+<div class="card">
+<h2>نبي أثر</h2>
+<p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p>
+<p class="highlight">أثر اليوم إنجاز الغد</p>
+</div>
+<div class="card">
+<h3>الأثر</h3>
+<p>نسعى من خلال المبادرات والأنشطة إلى تحويل الأفكار التعليمية إلى ممارسات وتجارب تترك أثرًا مستمرًا.</p>
+</div>
+</div>
+</div></div>
+</section>
+
+<!-- المبادرات -->
+<section class="page" id="page-initiatives">
+<div class="page-title"><h1>المبادرات</h1><p>نحو علو وتمكين .. معاً نتنافس</p></div>
+<div class="section"><div class="container">
+<div class="cards">
+<div class="card"><h2>نحو علو وتمكين</h2><p>مبادرة مجتمعية لدعم التميز والتمكين ورفع نواتج التعلم.</p></div>
+<div class="card"><h2>النسب في حياتنا</h2><p>ربط المفاهيم الرياضية بالحياة اليومية والمواقف الواقعية.</p></div>
+<div class="card"><h2>النسب في حياتنا — رؤية واقعية</h2><p>تطبيق مفهوم النسب من خلال مواقف واقعية وأمثلة من الحياة.</p></div>
+<div class="card"><h2>الواقع المعزز في التعليم</h2><p>توظيف التقنية والواقع المعزز بطريقة تخدم العملية التعليمية.</p></div>
+</div>
+</div></div>
+</section>
+
+<!-- المعرض -->
+<section class="page" id="page-gallery">
+<div class="page-title"><h1>معرض الأنشطة</h1><p>نماذج من الأنشطة والمبادرات</p></div>
+<div class="section"><div class="container">
+<div class="gallery">
+<img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="نشاط">
+<img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="نشاط">
+<img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="نشاط">
+</div>
+</div></div>
+</section>
+
+<!-- معلومات الموقع -->
+<section class="page" id="page-contact">
+<div class="page-title"><h1>معلومات الموقع</h1><p>الثانوية الثالثة والأربعون</p></div>
+<div class="section"><div class="container">
+<div class="grid">
+<div class="card"><h2>المدرسة</h2><p>الثانوية الثالثة والأربعون</p></div>
+<div class="card"><h2>اسم المنصة</h2><p>سِمُو</p></div>
+<div class="card"><h2>الإشراف</h2><p>مديرة المدرسة: حنان الحربي</p></div>
+<div class="card"><h2>تصميم الموقع</h2><p>بشاير الغامدي - ريما الغامدي</p></div>
+</div>
+</div></div>
+</section>
+
+<footer>
+<p>سِمُو — رؤية وبناء .. من فكرة الى إنجاز</p>
+<p>الثانوية الثالثة والأربعون</p>
+</footer>
+
 <script>
-function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('open')}
-function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+function openMenu(){
+ document.getElementById('drawer').classList.add('open');
+ document.getElementById('overlay').classList.add('show');
+}
+function closeMenu(){
+ document.getElementById('drawer').classList.remove('open');
+ document.getElementById('overlay').classList.remove('show');
+}
+function showPage(page){
+ document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active')});
+ var target=document.getElementById('page-'+page);
+ if(target) target.classList.add('active');
+ document.querySelectorAll('.drawer a').forEach(function(a){a.classList.remove('active')});
+ var link=document.querySelector('.drawer a[data-page="'+page+'"]');
+ if(link) link.classList.add('active');
+ closeMenu();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function loadFromHash(){
+ var page=location.hash.replace('#','') || 'home';
+ var allowed=['home','about','impact','initiatives','gallery','contact'];
+ if(!allowed.includes(page)) page='home';
+ showPage(page);
+}
+window.addEventListener('hashchange',loadFromHash);
+window.addEventListener('load',loadFromHash);
 </script>
 </body>
 </html>

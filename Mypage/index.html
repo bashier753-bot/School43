@@ -25,11 +25,12 @@ button{font:inherit}
 .menu-btn span{width:23px;height:2px;background:#fff;border-radius:3px}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:1100;opacity:0;visibility:hidden;transition:.25s}
 .overlay.show{opacity:1;visibility:visible}
-.drawer{position:fixed;right:-360px;top:0;width:340px;max-width:90vw;height:100vh;background:#fff;z-index:1200;padding:84px 28px 25px;box-shadow:-16px 0 45px rgba(0,0,0,.18);transition:.3s}
+.drawer{position:fixed;right:-360px;top:0;width:340px;max-width:90vw;height:100vh;overflow-y:auto;background:#fff;z-index:1200;padding:84px 28px 25px;box-shadow:-16px 0 45px rgba(0,0,0,.18);transition:.3s}
 .drawer.open{right:0}
 .drawer h3{color:var(--green);font-size:22px;margin-bottom:15px}
 .drawer a{display:block;padding:12px 8px;border-bottom:1px solid #edf1ef;font-weight:700;color:#244c45}
 .drawer a:hover,.drawer a.active{color:var(--green2)}
+.drawer a.yada-menu-link{background:var(--mint);color:var(--green);border:1px solid #cfe2d9;border-radius:12px;margin:8px 0;font-weight:800}
 .close{position:absolute;top:18px;left:18px;width:38px;height:38px;border:0;border-radius:50%;background:var(--mint);color:var(--green);font-size:24px;cursor:pointer}
 .page{display:none;min-height:100vh;padding-top:74px}
 .page.active{display:block}
@@ -191,13 +192,12 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
 <aside class="drawer" id="drawer">
   <button class="close" onclick="closeMenu()">×</button>
   <h3>قائمة سِمُو</h3>
-  <a href="#home" data-page="home" onclick="showPage('home')">الرئيسية</a>
-  <a href="#about" data-page="about" onclick="showPage('about')">عن سِمُو</a>
-  <a href="#programs" data-page="programs" onclick="showPage('programs')">البرامج والمجالات </a>
+  <a href="#home" data-page="home" onclick="showPage('home'); return false;">الرئيسية</a>
+  <a href="#yada" data-page="yada" class="yada-menu-link" onclick="showPage('yada'); return false;">🤝 يدًا بيد — مشاركات أولياء الأمور</a>
+  <a href="#about" data-page="about" onclick="showPage('about'); return false;">عن سِمُو</a>
+  <a href="#programs" data-page="programs" onclick="showPage('programs')">البرامج والمسارات</a>
   <a href="#impact" data-page="impact" onclick="showPage('impact')">نبني أثر</a>
-  <a href="#yada" data-page="yada" onclick="showPage('yada')">يدًا بيد</a>
-  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">المبادرات </a>
-    <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">الايام والمناسبات  </a>
+  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">المبادرات والأنشطة</a>
   <a href="#gallery" data-page="gallery" onclick="showPage('gallery')">معرض الصور</a>
   <a href="#contact" data-page="contact" onclick="showPage('contact')">معلومات الموقع</a>
 </aside>

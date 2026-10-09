@@ -208,6 +208,22 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
 .back-events{display:inline-flex;margin-bottom:22px;color:var(--green2);font-weight:800;cursor:pointer;background:transparent;border:0}
 @media(max-width:900px){.events-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.event-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.events-grid,.event-gallery{grid-template-columns:1fr}.event-cover{height:175px}.event-detail-hero{padding:23px;gap:15px}.event-detail-hero .event-symbol{font-size:55px}.event-detail-hero h2{font-size:23px}.event-photo{min-height:210px}}
+/* Owner-only event photo controls */
+.owner-only{display:none!important}
+body.owner-mode .owner-only{display:inline-flex!important}
+.owner-login-btn,.owner-logout-btn,.delete-photo-btn{border:0;cursor:pointer;font:inherit;font-weight:800;border-radius:22px;padding:9px 15px}
+.owner-login-btn{background:#fff;color:var(--green);border:1px solid #cfe2d9}
+.owner-logout-btn{background:#fbe9e7;color:#9b2929}
+.event-photo .delete-photo-btn{position:absolute;z-index:3;top:9px;left:9px;background:#9b2929;color:#fff;box-shadow:0 2px 8px #0003}
+.owner-login-panel{display:none;position:fixed;inset:0;z-index:3000;background:#0008;align-items:center;justify-content:center;padding:18px}
+.owner-login-panel.open{display:flex}
+.owner-login-card{background:#fff;border-radius:22px;padding:25px;width:min(100%,420px);box-shadow:0 20px 60px #0004}
+.owner-login-card h2{color:var(--green);margin-bottom:10px}
+.owner-login-card label{display:block;font-weight:800;color:var(--green);margin:12px 0 5px}
+.owner-login-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit}
+.owner-login-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.owner-login-error{color:#a22;margin-top:10px;font-size:13px}
+
 
 </style>
 </head>
@@ -463,7 +479,7 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('events')">→ العودة إلى الأيام والمناسبات</button>
     <div class="event-detail-hero teacher"><span class="event-symbol">👩🏻‍🏫</span><div><h2>يوم المعلم</h2><p>توثيق تكريم المعلمات والأنشطة والفعاليات التي تعبّر عن الامتنان لرسالة التعليم.</p></div></div>
-    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">أضيفي صور احتفال المدرسة لتظهر في هذا المعرض.</p></div><label class="upload-label">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('teacher-day',this.files,this)"></label></div>
+    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">صور المناسبة المعروضة للزوار.</p></div><div class="event-admin-actions"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">🔐 دخول المالكة</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button></div><label class="upload-label owner-only">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('teacher-day',this.files,this)"></label></div>
     <div class="event-gallery" id="gallery-teacher-day"></div>
   </div></div>
 </section>
@@ -473,7 +489,7 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('events')">→ العودة إلى الأيام والمناسبات</button>
     <div class="event-detail-hero national"><span class="event-symbol">🇸🇦</span><div><h2>اليوم الوطني السعودي</h2><p>مساحة لتوثيق العروض والأنشطة الطلابية والركن الوطني ومظاهر الفخر بالوطن.</p></div></div>
-    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">أضيفي صور احتفال المدرسة لتظهر في هذا المعرض.</p></div><label class="upload-label">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('national-day',this.files,this)"></label></div>
+    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">صور المناسبة المعروضة للزوار.</p></div><div class="event-admin-actions"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">🔐 دخول المالكة</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button></div><label class="upload-label owner-only">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('national-day',this.files,this)"></label></div>
     <div class="event-gallery" id="gallery-national-day"></div>
   </div></div>
 </section>
@@ -483,10 +499,23 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('events')">→ العودة إلى الأيام والمناسبات</button>
     <div class="event-detail-hero foundation"><span class="event-symbol">🐎</span><div><h2>يوم التأسيس</h2><p>توثيق الأزياء التراثية والأركان التاريخية والأنشطة التي تعرّف بتاريخ الدولة السعودية.</p></div></div>
-    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">أضيفي صور احتفال المدرسة لتظهر في هذا المعرض.</p></div><label class="upload-label">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('foundation-day',this.files,this)"></label></div>
+    <div class="event-toolbar"><div><h2 style="color:var(--green)">صور الفعاليات</h2><p style="color:var(--muted)">صور المناسبة المعروضة للزوار.</p></div><div class="event-admin-actions"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">🔐 دخول المالكة</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button></div><label class="upload-label owner-only">＋ إضافة صور الفعالية<input type="file" accept="image/*" multiple onchange="addEventPhotos('foundation-day',this.files,this)"></label></div>
     <div class="event-gallery" id="gallery-foundation-day"></div>
   </div></div>
 </section>
+
+<div class="owner-login-panel" id="ownerLoginPanel" role="dialog" aria-modal="true" aria-labelledby="ownerLoginTitle">
+  <form class="owner-login-card" id="ownerLoginForm">
+    <h2 id="ownerLoginTitle">دخول مالكة الموقع</h2>
+    <p style="color:var(--muted);font-size:14px">سجّلي الدخول بحساب المالكة لإضافة صور الفعاليات وحذفها.</p>
+    <label for="ownerEmail">البريد الإلكتروني</label>
+    <input id="ownerEmail" type="email" autocomplete="username" required placeholder="البريد المسجل في Supabase">
+    <label for="ownerPassword">كلمة المرور</label>
+    <input id="ownerPassword" type="password" autocomplete="current-password" required placeholder="كلمة مرور حسابك">
+    <div class="owner-login-actions"><button class="btn" type="submit">تسجيل الدخول</button><button class="owner-login-btn" type="button" onclick="closeOwnerLogin()">إلغاء</button></div>
+    <p id="ownerLoginError" class="owner-login-error" role="alert"></p>
+  </form>
+</div>
 
 <footer>
   <div class="footer-inner">
@@ -526,6 +555,38 @@ const SUPABASE_URL = 'https://jtrggxngwyhjrrrnercv.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AOfMIAFN8VW0XdEXyPtpLQ_0veyVnTu';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const YADA_BUCKET = 'yada-images';
+const OWNER_UID = '5bdb0143-02da-41a7-85b7-a0eba6485434';
+let isSiteOwner = false;
+function openOwnerLogin(){document.getElementById('ownerLoginError').textContent='';document.getElementById('ownerLoginPanel').classList.add('open')}
+function closeOwnerLogin(){document.getElementById('ownerLoginPanel').classList.remove('open')}
+function updateOwnerUI(){
+  document.body.classList.toggle('owner-mode', isSiteOwner);
+  document.querySelectorAll('.owner-login-btn').forEach(function(btn){btn.style.display=isSiteOwner?'none':''});
+  Object.keys(eventTypes).forEach(function(type){renderEventPhotos(type)});
+}
+async function checkOwnerSession(){
+  const {data:{session}} = await supabaseClient.auth.getSession();
+  isSiteOwner=!!(session && session.user && session.user.id===OWNER_UID);
+  if(session && session.user && !isSiteOwner){await supabaseClient.auth.signOut();}
+  updateOwnerUI();
+}
+async function ownerLogout(){await supabaseClient.auth.signOut();isSiteOwner=false;updateOwnerUI();alert('تم تسجيل الخروج من وضع المالكة.')}
+const ownerLoginForm=document.getElementById('ownerLoginForm');
+ownerLoginForm.addEventListener('submit',async function(event){
+  event.preventDefault();
+  const errorBox=document.getElementById('ownerLoginError');errorBox.textContent='جارٍ التحقق…';
+  const email=document.getElementById('ownerEmail').value.trim();
+  const password=document.getElementById('ownerPassword').value;
+  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+  if(error){errorBox.textContent='تعذر تسجيل الدخول. تحققي من البريد وكلمة المرور وإعدادات Supabase.';return;}
+  if(!data.user || data.user.id!==OWNER_UID){await supabaseClient.auth.signOut();errorBox.textContent='هذا الحساب ليس حساب مالكة الموقع المعتمد.';return;}
+  isSiteOwner=true;closeOwnerLogin();ownerLoginForm.reset();updateOwnerUI();alert('أهلًا بكِ، يمكنك الآن إضافة الصور وحذفها.');
+});
+supabaseClient.auth.onAuthStateChange(function(_event,session){
+  isSiteOwner=!!(session && session.user && session.user.id===OWNER_UID);
+  updateOwnerUI();
+});
+
 
 function safeText(value) {
   return value == null ? '' : String(value);
@@ -697,6 +758,15 @@ async function renderEventPhotos(type) {
       img.alt = photo.name || eventTypes[type].label;
       img.loading = 'lazy';
       tile.appendChild(img);
+      if (isSiteOwner) {
+        const deleteButton=document.createElement('button');
+        deleteButton.type='button';
+        deleteButton.className='delete-photo-btn owner-only';
+        deleteButton.textContent='🗑 حذف';
+        deleteButton.setAttribute('aria-label','حذف الصورة '+(photo.name||''));
+        deleteButton.addEventListener('click',function(){deleteEventPhoto(type,photo.name)});
+        tile.appendChild(deleteButton);
+      }
       gallery.appendChild(tile);
     });
   } catch (error) {
@@ -707,6 +777,16 @@ async function renderEventPhotos(type) {
     gallery.appendChild(message);
   }
 }
+async function deleteEventPhoto(type, name) {
+  if(!isSiteOwner){alert('هذه الخاصية متاحة لمالكة الموقع فقط.');return;}
+  if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
+  const path='events/'+type+'/'+name;
+  const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
+  if(error){console.error('Supabase image delete error:',error);alert('تعذر حذف الصورة. تحققي من سياسة DELETE في مساحة yada-images.');return;}
+  await renderEventPhotos(type);
+  alert('تم حذف الصورة.');
+}
+
 async function addEventPhotos(type, files, input) {
   if (!files || !files.length) return;
   const incoming = Array.from(files).filter(function(file) { return file.type && file.type.startsWith('image/'); });
@@ -739,6 +819,7 @@ async function addEventPhotos(type, files, input) {
     button.style.opacity = '1';
   }
 }
+checkOwnerSession();
 Object.keys(eventTypes).forEach(function(type) { renderEventPhotos(type); });
 renderYadaComments();
 

@@ -243,7 +243,7 @@ body.owner-mode .owner-only{display:inline-flex!important}
 @media(max-width:600px){.domain-grid,.home-domain-grid,.program-domain-cards{grid-template-columns:1fr}.home-domain-grid .domain-card{text-align:right}.domain-card{padding:22px}}
 
 
-/* A4 evidence sheets, uploaded by the verified site owner */
+/* Evidence sheets, uploaded by the verified site owner */
 .evidence-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px 0 24px}
 .evidence-upload-label{display:none;align-items:center;gap:8px;cursor:pointer;background:var(--mint);color:var(--green);border:1px solid #cfe2d9;padding:11px 17px;border-radius:24px;font-weight:800}
 body.owner-mode .evidence-upload-label{display:inline-flex}
@@ -273,14 +273,13 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <button class="close" onclick="closeMenu()">×</button>
   <h3>قائمة سِمُو</h3>
   <a href="#home" data-page="home" onclick="showPage('home'); return false;">الرئيسية</a>
-  <a href="#yada" data-page="yada" class="yada-menu-link" onclick="showPage('yada'); return false;">🤝 يدًا بيد </a>
-  <a href="#events" data-page="events" onclick="showPage('events'); return false;"> الأيام والمناسبات</a>
-  <a href="#about" data-page="about" onclick="showPage('about'); return false;">عن سِمُو</a>
-  <a href="#programs" data-page="programs" onclick="showPage('programs')">البرامج والمسارات</a>
-  <a href="#impact" data-page="impact" onclick="showPage('impact')">نبني أثر</a>
-  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">المبادرات والأنشطة</a>
-  <a href="#gallery" data-page="gallery" onclick="showPage('gallery')">المجالات</a>
-  <a href="#contact" data-page="contact" onclick="showPage('contact')">معلومات الموقع</a>
+  <a href="#about" data-page="about" onclick="showPage('about'); return false;">عن سمو</a>
+  <a href="#programs" data-page="programs" onclick="showPage('programs'); return false;">البرامج والمسارات</a>
+  <a href="#gallery" data-page="gallery" onclick="showPage('gallery'); return false;">المجالات</a>
+  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives'); return false;">المبادرات</a>
+  <a href="#yada" data-page="yada" class="yada-menu-link" onclick="showPage('yada'); return false;">يداً بيد</a>
+  <a href="#events" data-page="events" onclick="showPage('events'); return false;">الايام والمناسبات</a>
+  <a href="#impact" data-page="impact" onclick="showPage('impact'); return false;">نبني اثر</a>
 </aside>
 
 <section class="page active" id="page-home">
@@ -445,46 +444,46 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 </section>
 
 <section class="page" id="page-initiative-leadership">
-  <div class="page-title"><h1>الريادة في القدرات والتحصيلي</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="page-title"><h1>الريادة في القدرات والتحصيلي</h1><p>صور المبادرة وشواهدها</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-leadership',this.files,this)"></label></div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-leadership',this.files,this)"></label></div></div>
     <div class="evidence-gallery" id="evidence-gallery-initiative-leadership"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
 <section class="page" id="page-initiative-platform">
-  <div class="page-title"><h1>منصة سمو</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="page-title"><h1>منصة سمو</h1><p>صور المبادرة وشواهدها</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-platform',this.files,this)"></label></div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-platform',this.files,this)"></label></div></div>
     <div class="evidence-gallery" id="evidence-gallery-initiative-platform"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
 <section class="page" id="page-initiative-nation">
-  <div class="page-title"><h1>وطن يجمعنا وأسرة تبني مجداً</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="page-title"><h1>وطن يجمعنا وأسرة تبني مجداً</h1><p>صور المبادرة وشواهدها</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-nation',this.files,this)"></label></div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-nation',this.files,this)"></label></div></div>
     <div class="evidence-gallery" id="evidence-gallery-initiative-nation"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
 <section class="page" id="page-initiative-ai-education">
-  <div class="page-title"><h1>تقنيات المستقبل والذكاء الاصطناعي في التعليم</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="page-title"><h1>تقنيات المستقبل والذكاء الاصطناعي في التعليم</h1><p>صور المبادرة وشواهدها</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-ai-education',this.files,this)"></label></div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-ai-education',this.files,this)"></label></div></div>
     <div class="evidence-gallery" id="evidence-gallery-initiative-ai-education"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
 <section class="page" id="page-initiative-school-environment">
-  <div class="page-title"><h1>تحسين البيئة المدرسية</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="page-title"><h1>تحسين البيئة المدرسية</h1><p>صور المبادرة وشواهدها</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-school-environment',this.files,this)"></label></div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-school-environment',this.files,this)"></label></div></div>
     <div class="evidence-gallery" id="evidence-gallery-initiative-school-environment"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
@@ -558,7 +557,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>العلوم والتقنية — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-science')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('science-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-science-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('science-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-science-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -566,7 +565,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>العلوم والتقنية — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-science')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('science-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-science-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('science-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-science-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -574,7 +573,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>الرياضة والصحة — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-sport')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('sport-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-sport-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('sport-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-sport-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -582,7 +581,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>الرياضة والصحة — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-sport')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('sport-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-sport-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('sport-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-sport-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -590,7 +589,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -598,7 +597,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -606,7 +605,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>الثقافة والفنون — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-culture')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('culture-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-culture-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('culture-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-culture-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -614,7 +613,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>الثقافة والفنون — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-culture')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('culture-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-culture-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('culture-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-culture-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -622,7 +621,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>النشاط الكشفي — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-scout')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('scout-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-scout-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('scout-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-scout-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -630,19 +629,8 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="page-title"><h1>الشواهد</h1><p>النشاط الكشفي — برنامج ............</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-scout')">→ العودة إلى برامج المجال</button>
-    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2><p style="color:var(--muted);margin:0">صور الشواهد بمقاس ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('scout-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-scout-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('scout-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-scout-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
-</section>
-
-
-<section class="page" id="page-contact">
-  <div class="page-title"><h1>معلومات الموقع</h1><p>الثانوية الثالثة والأربعون</p></div>
-  <div class="section"><div class="container"><div class="cards">
-    <div class="card"><h2>المدرسة</h2><p>الثانوية الثالثة والأربعون</p></div>
-    <div class="card"><h2>اسم المنصة</h2><p>سِمُو</p></div>
-    <div class="card"><h2>الإشراف</h2><p>مديرة المدرسة: حنان الحربي</p></div>
-    <div class="card"><h2>تصميم الموقع</h2><p>بشاير الغامدي</p></div>
-  </div></div></div>
 </section>
 
 
@@ -718,8 +706,8 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 
 <div class="owner-login-panel" id="ownerLoginPanel" role="dialog" aria-modal="true" aria-labelledby="ownerLoginTitle">
   <form class="owner-login-card" id="ownerLoginForm">
-    <h2 id="ownerLoginTitle">دخول مالكة الموقع</h2>
-    <p style="color:var(--muted);font-size:14px">سجّلي الدخول بحساب المالكة لإضافة صور الفعاليات وحذفها.</p>
+    <h2 id="ownerLoginTitle">تسجيل الدخول</h2>
+    <p style="color:var(--muted);font-size:14px">سجّلي الدخول لإضافة صور الفعاليات وحذفها.</p>
     <label for="ownerEmail">البريد الإلكتروني</label>
     <input id="ownerEmail" type="email" autocomplete="username" required placeholder="البريد المسجل في Supabase">
     <label for="ownerPassword">كلمة المرور</label>
@@ -783,7 +771,7 @@ async function checkOwnerSession(){
   if(session && session.user && !isSiteOwner){await supabaseClient.auth.signOut();}
   updateOwnerUI();
 }
-async function ownerLogout(){await supabaseClient.auth.signOut();isSiteOwner=false;updateOwnerUI();alert('تم تسجيل الخروج من وضع المالكة.')}
+async function ownerLogout(){await supabaseClient.auth.signOut();isSiteOwner=false;updateOwnerUI();alert('تم تسجيل الخروج بنجاح.')}
 const ownerLoginForm=document.getElementById('ownerLoginForm');
 ownerLoginForm.addEventListener('submit',async function(event){
   event.preventDefault();
@@ -792,7 +780,7 @@ ownerLoginForm.addEventListener('submit',async function(event){
   const password=document.getElementById('ownerPassword').value;
   const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
   if(error){errorBox.textContent='تعذر تسجيل الدخول. تحققي من البريد وكلمة المرور وإعدادات Supabase.';return;}
-  if(!data.user || data.user.id!==OWNER_UID){await supabaseClient.auth.signOut();errorBox.textContent='هذا الحساب ليس حساب مالكة الموقع المعتمد.';return;}
+  if(!data.user || data.user.id!==OWNER_UID){await supabaseClient.auth.signOut();errorBox.textContent='هذا الحساب غير مخوّل لإدارة الموقع.';return;}
   isSiteOwner=true;closeOwnerLogin();ownerLoginForm.reset();updateOwnerUI();alert('أهلًا بكِ، يمكنك الآن إضافة الصور وحذفها.');
 });
 supabaseClient.auth.onAuthStateChange(function(_event,session){
@@ -823,7 +811,7 @@ async function renderEvidenceImages(key){
     if(evidenceRenderVersion[key]!==version) return;
     const files=(data||[]).filter(function(item){return item.name && item.name!=='.emptyFolderPlaceholder' && item.id;});
     gallery.replaceChildren();
-    if(!files.length){const empty=document.createElement('div');empty.className='evidence-empty';empty.textContent=isSiteOwner?'لا توجد شواهد بعد. استخدمي زر «إضافة صور A4» لرفع الصور.':'لا توجد شواهد مضافة لهذا البرنامج حتى الآن.';gallery.appendChild(empty);return;}
+    if(!files.length){const empty=document.createElement('div');empty.className='evidence-empty';empty.textContent=isSiteOwner?'لا توجد شواهد بعد. استخدمي زر «إضافة صور الشواهد» لرفع الصور.':'لا توجد شواهد مضافة لهذا البرنامج حتى الآن.';gallery.appendChild(empty);return;}
     files.forEach(function(file){
       const path=folder+'/'+file.name;
       const url=supabaseClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl;
@@ -847,7 +835,7 @@ async function renderEvidenceImages(key){
   }
 }
 async function deleteEvidenceImage(key,name){
-  if(!isSiteOwner){alert('حذف الشواهد متاح لمالكة الموقع فقط.');return;}
+  if(!isSiteOwner){alert('حذف الشواهد متاح للحساب المخوّل فقط.');return;}
   if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
   const path='evidence/'+key+'/'+name;
   const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
@@ -856,7 +844,7 @@ async function deleteEvidenceImage(key,name){
   alert('تم حذف الصورة.');
 }
 async function addEvidenceImages(key,files,input){
-  if(!isSiteOwner){alert('إضافة الشواهد متاحة لمالكة الموقع فقط.');input.value='';return;}
+  if(!isSiteOwner){alert('إضافة الشواهد متاحة للحساب المخوّل فقط.');input.value='';return;}
   const incoming=Array.from(files||[]).filter(function(file){return file.type&&file.type.startsWith('image/');});
   if(!incoming.length){alert('اختاري ملفات صور صالحة.');input.value='';return;}
   const label=input.parentElement;label.style.opacity='.65';
@@ -868,7 +856,7 @@ async function addEvidenceImages(key,files,input){
       const {error}=await supabaseClient.storage.from(YADA_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});
       if(error) throw error;
     }
-    await renderEvidenceImages(key);alert('تم رفع صور الشواهد بنجاح. ستُعرض في صفحات الزوار بمقاس A4.');
+    await renderEvidenceImages(key);alert('تم رفع صور الشواهد بنجاح. تم عرضها في صفحات الزوار.');
   }catch(error){console.error('Evidence upload error:',error);alert('تعذر رفع الصور. تأكدي من سياسة INSERT في مساحة yada-images وأن حجم كل صورة لا يتجاوز 8 ميجابايت.');}
   finally{input.value='';label.style.opacity='1';}
 }
@@ -1078,7 +1066,7 @@ async function renderEventPhotos(type) {
   }
 }
 async function deleteEventPhoto(type, name) {
-  if(!isSiteOwner){alert('هذه الخاصية متاحة لمالكة الموقع فقط.');return;}
+  if(!isSiteOwner){alert('هذه الخاصية متاحة للحساب المخوّل فقط.');return;}
   if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
   const path='events/'+type+'/'+name;
   const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
@@ -1127,7 +1115,7 @@ renderYadaComments();
 
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';
-  var allowed=['home','about','programs','impact','yada','initiatives','gallery','contact','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'];
+  var allowed=['home','about','programs','impact','yada','initiatives','gallery','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'];
   if(!allowed.includes(page)) page='home';
   showPage(page);
 }

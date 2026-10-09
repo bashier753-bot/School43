@@ -225,6 +225,23 @@ body.owner-mode .owner-only{display:inline-flex!important}
 .owner-login-error{color:#a22;margin-top:10px;font-size:13px}
 
 
+
+.domain-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.domain-card{display:block;text-decoration:none;color:var(--deep);background:linear-gradient(135deg,#eaf5ef,#fffdf8);border:1px solid #d7e8df;border-radius:22px;padding:25px;box-shadow:0 8px 24px rgba(13,84,67,.06);transition:transform .2s,box-shadow .2s}
+.domain-card:hover,.program-link-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(13,84,67,.12)}
+.domain-card>span,.domain-icon{font-size:34px;display:block;margin-bottom:12px}
+.domain-card h2,.domain-card h3{margin:0 0 10px;color:var(--deep)}
+.domain-card p,.domain-card small{color:#687c75;line-height:1.8}
+.domain-card b,.program-link-card b{display:inline-block;margin-top:12px;color:var(--green,#16745e)}
+.home-domain-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.home-domain-grid .domain-card{padding:18px 12px;text-align:center}
+.program-domain-cards{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:20px}
+.program-link-card{display:block;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s}
+.program-link-card h2{color:var(--deep)}
+.evidence-placeholder{max-width:800px;margin:25px auto;text-align:center;padding:50px 24px}
+@media(max-width:900px){.home-domain-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.domain-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.domain-grid,.home-domain-grid,.program-domain-cards{grid-template-columns:1fr}.home-domain-grid .domain-card{text-align:right}.domain-card{padding:22px}}
+
 </style>
 </head>
 <body>
@@ -250,7 +267,7 @@ body.owner-mode .owner-only{display:inline-flex!important}
   <a href="#programs" data-page="programs" onclick="showPage('programs')">البرامج والمسارات</a>
   <a href="#impact" data-page="impact" onclick="showPage('impact')">نبني أثر</a>
   <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives')">المبادرات والأنشطة</a>
-  <a href="#gallery" data-page="gallery" onclick="showPage('gallery')">معرض الصور</a>
+  <a href="#gallery" data-page="gallery" onclick="showPage('gallery')">المجالات</a>
   <a href="#contact" data-page="contact" onclick="showPage('contact')">معلومات الموقع</a>
 </aside>
 
@@ -274,7 +291,7 @@ body.owner-mode .owner-only{display:inline-flex!important}
     <div class="quick-grid">
       <a class="quick-card" href="#programs" onclick="showPage('programs')"><span class="icon">🎓</span><b>القدرات والتحصيلي</b><small>نصنع مستقبلًا أفضل</small></a>
       <a class="quick-card" href="#initiatives" onclick="showPage('initiatives')"><span class="icon">✦</span><b>المبادرات والأنشطة</b><small>أفكار تُحدث فرقًا</small></a>
-      <a class="quick-card" href="#gallery" onclick="showPage('gallery')"><span class="icon">▧</span><b>معرض الصور</b><small>لحظات من رحلتنا</small></a>
+      <a class="quick-card" href="#gallery" onclick="showPage('gallery')"><span class="icon">▧</span><b>المجالات</b><small>برامجنا وشواهدنا</small></a>
       <a class="quick-card" href="#impact" onclick="showPage('impact')"><span class="icon">🌿</span><b>نبني أثر</b><small>معًا نترك أثرًا</small></a>
     </div>
   </div>
@@ -335,14 +352,15 @@ body.owner-mode .owner-only{display:inline-flex!important}
 
   <section class="section gallery-section">
     <div class="container">
-      <div class="section-head gallery-head"><div class="eyebrow">لحظات من رحلتنا</div><h2>معرض الصور</h2><p>لقطات من الأنشطة والفعاليات والمبادرات.</p></div>
-      <div class="gallery">
-        <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="صورة">
-        <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="صورة">
-        <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="صورة">
-        <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="صورة">
-        <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="صورة">
+      <div class="section-head gallery-head"><div class="eyebrow">برامجنا وشواهدنا</div><h2>المجالات</h2><p>استكشفي المجالات الخمسة وبرامج كل مجال.</p></div>
+      <div class="domain-grid home-domain-grid">
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🔬</span><h3>العلوم والتقنية</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>⚽</span><h3>الرياضة والصحة</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🌱</span><h3>المواطنة والحياة</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🎨</span><h3>الثقافة والفنون</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>⛺</span><h3>النشاط الكشفي</h3><small>استكشاف المجال والبرامج</small></a>
       </div>
+      <div style="text-align:center;margin-top:24px"><a class="btn" href="#gallery" onclick="showPage('gallery');return false;">استعراض جميع المجالات ←</a></div>
     </div>
   </section>
 
@@ -412,16 +430,151 @@ body.owner-mode .owner-only{display:inline-flex!important}
 </section>
 
 <section class="page" id="page-gallery">
-  <div class="page-title"><h1>معرض الصور</h1><p>لحظات من رحلتنا</p></div>
-  <div class="section"><div class="container"><div class="gallery-page">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="نشاط">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="نشاط">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="نشاط">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72s11JUxFLtZXiWN07M0Rysdrn_MqX9LYrdQLGd5bcTLO29XSqRo8lTannP3nPRy2q5r7HeOlxo79_m4uwVHTx2xlKlFMP9tUA0J5KXoAug8vq6L7KzAcZX4RlWajhFT4KD9ra88baBA6v3VVNKT3KyLMdfwzF4A2P5Ias_pUqDgZRTeM-7TYD7Vf_b9LSZezx97hENa_Fn3UIbRvCmxRfmEphTUH_kwCluMe342%3Dw1280" alt="نشاط">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72tsSbeRAtPjmdZSmojM7om8lG8FI-pacFKE-qFopJnPPPoYiUFkKYLJ3-HaZro8gCA6CwYp3N5jUNQ9-d3cKvEOC-LyC_a2Y7QXckRoMm132P4OWXb962SYiCFYnAzXteL6z1mAaND1lehuxJFg1FrimcVUk7Of1JOg4-FHtuHFM4rPATVP2N2la56Pl5M6Tjbijfz4w32zFkP3-LchWS1Fb2BaGyAjlSWY_5HejaE%3Dw1280" alt="نشاط">
-    <img src="https://sites.google.com/sitesv-images-rt/AMxu72vu4w_m2_DhsJ1Eblohp5vqhXzKIvYJzdic5wy7kdKrjhw9bvjKlkRjPKzdNgX2jwH7FSBTYP8q8bPJDmii0nzcqs1ZDjbbxYLs5Z3OjLME3_lbl2J6122lu4orgVv3SqjPBm3BGwjmyf4waq-McTOSgPNy0CdpE3i5xtvJIA9-rv65IYRoF1XEjUx8-cxCRAMYhdlw9pTlFIz4hCOWEmVD68hf13HOpDYqT6Z2cM%3Dw1280" alt="نشاط">
+  <div class="page-title"><h1>المجالات</h1><p>اختاري المجال لاستعراض برامجه والشواهد المرتبطة بها.</p></div>
+  <div class="section"><div class="container"><div class="domain-grid">
+    <a class="domain-card" href="#domain-science" onclick="showPage('domain-science');return false;"><span>🔬</span><h2>العلوم والتقنية</h2><p>برامج علمية وتقنية وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-sport" onclick="showPage('domain-sport');return false;"><span>⚽</span><h2>الرياضة والصحة</h2><p>برامج الرياضة والصحة وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-citizenship" onclick="showPage('domain-citizenship');return false;"><span>🌱</span><h2>المواطنة والحياة</h2><p>برامج المواطنة والحياة وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-culture" onclick="showPage('domain-culture');return false;"><span>🎨</span><h2>الثقافة والفنون</h2><p>برامج الثقافة والفنون وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-scout" onclick="showPage('domain-scout');return false;"><span>⛺</span><h2>النشاط الكشفي</h2><p>برامج النشاط الكشفي وشواهدها.</p><b>دخول المجال ←</b></a>
   </div></div></div>
 </section>
+
+<section class="page" id="page-domain-science">
+  <div class="page-title"><h1>العلوم والتقنية</h1><p>اختاري البرنامج لفتح صفحة الشواهد.</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
+    <div class="cards program-domain-cards">
+      <a class="card program-link-card" href="#evidence-science-1" onclick="showPage('evidence-science-1');return false;"><div class="domain-icon">🔬</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-science-2" onclick="showPage('evidence-science-2');return false;"><div class="domain-icon">🔬</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-domain-sport">
+  <div class="page-title"><h1>الرياضة والصحة</h1><p>اختاري البرنامج لفتح صفحة الشواهد.</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
+    <div class="cards program-domain-cards">
+      <a class="card program-link-card" href="#evidence-sport-1" onclick="showPage('evidence-sport-1');return false;"><div class="domain-icon">⚽</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-sport-2" onclick="showPage('evidence-sport-2');return false;"><div class="domain-icon">⚽</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-domain-citizenship">
+  <div class="page-title"><h1>المواطنة والحياة</h1><p>اختاري البرنامج لفتح صفحة الشواهد.</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
+    <div class="cards program-domain-cards">
+      <a class="card program-link-card" href="#evidence-citizenship-1" onclick="showPage('evidence-citizenship-1');return false;"><div class="domain-icon">🌱</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-citizenship-2" onclick="showPage('evidence-citizenship-2');return false;"><div class="domain-icon">🌱</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-domain-culture">
+  <div class="page-title"><h1>الثقافة والفنون</h1><p>اختاري البرنامج لفتح صفحة الشواهد.</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
+    <div class="cards program-domain-cards">
+      <a class="card program-link-card" href="#evidence-culture-1" onclick="showPage('evidence-culture-1');return false;"><div class="domain-icon">🎨</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-culture-2" onclick="showPage('evidence-culture-2');return false;"><div class="domain-icon">🎨</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-domain-scout">
+  <div class="page-title"><h1>النشاط الكشفي</h1><p>اختاري البرنامج لفتح صفحة الشواهد.</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
+    <div class="cards program-domain-cards">
+      <a class="card program-link-card" href="#evidence-scout-1" onclick="showPage('evidence-scout-1');return false;"><div class="domain-icon">⛺</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-scout-2" onclick="showPage('evidence-scout-2');return false;"><div class="domain-icon">⛺</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-science-1">
+  <div class="page-title"><h1>الشواهد</h1><p>العلوم والتقنية — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-science')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-science-2">
+  <div class="page-title"><h1>الشواهد</h1><p>العلوم والتقنية — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-science')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-sport-1">
+  <div class="page-title"><h1>الشواهد</h1><p>الرياضة والصحة — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-sport')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-sport-2">
+  <div class="page-title"><h1>الشواهد</h1><p>الرياضة والصحة — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-sport')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-citizenship-1">
+  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-citizenship-2">
+  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-culture-1">
+  <div class="page-title"><h1>الشواهد</h1><p>الثقافة والفنون — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-culture')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-culture-2">
+  <div class="page-title"><h1>الشواهد</h1><p>الثقافة والفنون — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-culture')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-scout-1">
+  <div class="page-title"><h1>الشواهد</h1><p>النشاط الكشفي — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-scout')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-scout-2">
+  <div class="page-title"><h1>الشواهد</h1><p>النشاط الكشفي — برنامج ............</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-scout')">→ العودة إلى برامج المجال</button>
+    <div class="card evidence-placeholder"><div class="domain-icon">📁</div><h2>الشواهد</h2><p>ستُعرض شواهد البرنامج هنا.</p></div>
+  </div></div>
+</section>
+
 
 <section class="page" id="page-contact">
   <div class="page-title"><h1>معلومات الموقع</h1><p>الثانوية الثالثة والأربعون</p></div>
@@ -840,7 +993,7 @@ renderYadaComments();
 
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';
-  var allowed=['home','about','programs','impact','yada','initiatives','gallery','contact','events','teacher-day','national-day','foundation-day'];
+  var allowed=['home','about','programs','impact','yada','initiatives','gallery','contact','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2'];
   if(!allowed.includes(page)) page='home';
   showPage(page);
 }

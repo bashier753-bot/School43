@@ -732,22 +732,23 @@ async function getEventPhotos(type) {
     };
   });
 }
+const eventGalleryRenderVersion = Object.create(null);
 async function renderEventPhotos(type) {
   const gallery = document.getElementById('gallery-' + type);
   if (!gallery) return;
+  const renderVersion = (eventGalleryRenderVersion[type] || 0) + 1;
+  eventGalleryRenderVersion[type] = renderVersion;
   gallery.replaceChildren();
   try {
     const photos = await getEventPhotos(type);
+    // Ignore older requests if login/session changes trigger another render.
+    if (eventGalleryRenderVersion[type] !== renderVersion) return;
+
     if (!photos.length) {
-      for (let i = 0; i < 3; i++) {
-        const tile = document.createElement('div');
-        tile.className = 'event-photo';
-        const caption = document.createElement('div');
-        caption.className = 'photo-caption';
-        caption.textContent = eventTypes[type].icon + '  ' + eventTypes[type].label + ' — ' + (i + 1);
-        tile.appendChild(caption);
-        gallery.appendChild(tile);
-      }
+      const empty = document.createElement('div');
+      empty.className = 'comments-empty';
+      empty.textContent = 'لا توجد صور محفوظة لهذه المناسبة حتى الآن. سجّلي الدخول ثم أضيفي الصور من زر «إضافة صور الفعالية».';
+      gallery.appendChild(empty);
       return;
     }
     photos.forEach(function(photo) {
@@ -757,19 +758,28 @@ async function renderEventPhotos(type) {
       img.src = photo.url;
       img.alt = photo.name || eventTypes[type].label;
       img.loading = 'lazy';
+      img.onerror = function() {
+        tile.classList.remove('has-image');
+        img.remove();
+        const caption = document.createElement('div');
+        caption.className = 'photo-caption';
+        caption.textContent = 'تعذر تحميل الصورة: ' + (photo.name || '');
+        tile.appendChild(caption);
+      };
       tile.appendChild(img);
       if (isSiteOwner) {
-        const deleteButton=document.createElement('button');
-        deleteButton.type='button';
-        deleteButton.className='delete-photo-btn owner-only';
-        deleteButton.textContent='🗑 حذف';
-        deleteButton.setAttribute('aria-label','حذف الصورة '+(photo.name||''));
-        deleteButton.addEventListener('click',function(){deleteEventPhoto(type,photo.name)});
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'delete-photo-btn owner-only';
+        deleteButton.textContent = '🗑 حذف';
+        deleteButton.setAttribute('aria-label', 'حذف الصورة ' + (photo.name || ''));
+        deleteButton.addEventListener('click', function() { deleteEventPhoto(type, photo.name); });
         tile.appendChild(deleteButton);
       }
       gallery.appendChild(tile);
     });
   } catch (error) {
+    if (eventGalleryRenderVersion[type] !== renderVersion) return;
     console.error('Supabase event gallery error:', error);
     const message = document.createElement('div');
     message.className = 'comments-empty';

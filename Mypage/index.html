@@ -518,92 +518,67 @@ function showPage(page){
   if(location.hash !== '#'+page) history.replaceState(null,'','#'+page);
 }
 
-const YADA_STORAGE_KEY = 'sumo_yada_comments_v1';
-function getYadaComments(){
-  try { return JSON.parse(localStorage.getItem(YADA_STORAGE_KEY) || '[]'); }
-  catch(e) { return []; }
-}
-function renderYadaComments(){
-  const list=document.getElementById('commentsList');
-  if(!list) return;
-  const comments=getYadaComments();
-  list.replaceChildren();
-  if(!comments.length){
-    const empty=document.createElement('div'); empty.className='comments-empty';
-    empty.textContent='لا توجد مشاركات حتى الآن. كونوا أول من يشاركنا رأيه!'; list.appendChild(empty); return;
-  }
-  comments.slice().reverse().forEach(function(item){
-    const card=document.createElement('article'); card.className='comment-card';
-    const author=document.createElement('div'); author.className='comment-author'; author.textContent=item.name;
-    const body=document.createElement('p'); body.textContent=item.comment;
-    const date=document.createElement('div'); date.className='comment-date'; date.textContent=item.date;
-    card.append(author,body,date); list.appendChild(card);
+// IndexedDB provides much more storage than localStorage, especially for event photos.
+const SUMO_DB_NAME='sumo_site_db_v2';
+function openSumoDB(){
+  return new Promise(function(resolve,reject){
+    if(!('indexedDB' in window)){reject(new Error('IndexedDB غير مدعوم'));return;}
+    const request=indexedDB.open(SUMO_DB_NAME,1);
+    request.onupgradeneeded=function(){const db=request.result;if(!db.objectStoreNames.contains('data'))db.createObjectStore('data');};
+    request.onsuccess=function(){resolve(request.result)};
+    request.onerror=function(){reject(request.error||new Error('تعذر فتح قاعدة البيانات'))};
   });
+}
+async function dbGet(key){const db=await openSumoDB();return new Promise(function(resolve,reject){const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get(key);req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error)};tx.oncomplete=function(){db.close()};});}
+async function dbSet(key,value){const db=await openSumoDB();return new Promise(function(resolve,reject){const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,key);tx.oncomplete=function(){db.close();resolve()};tx.onerror=function(){db.close();reject(tx.error||new Error('تعذر الحفظ'))};tx.onabort=function(){db.close();reject(tx.error||new Error('تم إلغاء الحفظ'))};});}
+
+const YADA_STORAGE_KEY='sumo_yada_comments_v2';
+async function getYadaComments(){
+  try{const saved=await dbGet(YADA_STORAGE_KEY);if(Array.isArray(saved))return saved;}catch(e){console.warn('تعذر قراءة المشاركات من قاعدة البيانات',e)}
+  // Migrate comments from the previous version when available.
+  try{return JSON.parse(localStorage.getItem('sumo_yada_comments_v1')||'[]')}catch(e){return []}
+}
+async function renderYadaComments(){
+  const list=document.getElementById('commentsList');if(!list)return;
+  list.replaceChildren();
+  try{
+    const comments=await getYadaComments();
+    if(!comments.length){const empty=document.createElement('div');empty.className='comments-empty';empty.textContent='لا توجد مشاركات حتى الآن. كونوا أول من يشاركنا رأيه!';list.appendChild(empty);return;}
+    comments.slice().reverse().forEach(function(item){const card=document.createElement('article');card.className='comment-card';const author=document.createElement('div');author.className='comment-author';author.textContent=item.name;const body=document.createElement('p');body.textContent=item.comment;const date=document.createElement('div');date.className='comment-date';date.textContent=item.date;card.append(author,body,date);list.appendChild(card);});
+  }catch(e){const msg=document.createElement('div');msg.className='comments-empty';msg.textContent='تعذر تحميل المشاركات في هذا المتصفح. جرّبي فتح الملف في متصفح Safari أو Chrome.';list.appendChild(msg)}
 }
 const yadaForm=document.getElementById('yadaForm');
-if(yadaForm){
-  yadaForm.addEventListener('submit',function(event){
-    event.preventDefault();
-    const name=document.getElementById('parentName').value.trim();
-    const comment=document.getElementById('parentComment').value.trim();
-    if(!name || !comment) return;
-    const comments=getYadaComments();
-    comments.push({name:name,comment:comment,date:new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'})});
-    try { localStorage.setItem(YADA_STORAGE_KEY,JSON.stringify(comments)); }
-    catch(e) { alert('تعذر حفظ المشاركة على هذا الجهاز.'); return; }
-    yadaForm.reset(); renderYadaComments();
-  });
+if(yadaForm){yadaForm.addEventListener('submit',async function(event){
+  event.preventDefault();
+  const name=document.getElementById('parentName').value.trim();const comment=document.getElementById('parentComment').value.trim();
+  if(!name||!comment){alert('فضلاً اكتبي اسم ولي الأمر والمشاركة.');return;}
+  const submit=yadaForm.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='جارٍ نشر المشاركة…';
+  try{const comments=await getYadaComments();comments.push({name:name,comment:comment,date:new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'})});await dbSet(YADA_STORAGE_KEY,comments);yadaForm.reset();await renderYadaComments();}
+  catch(e){alert('لم نتمكن من حفظ المشاركة في هذا المتصفح. جرّبي فتح الملف في Safari أو Chrome ثم أعيدي المحاولة.');console.error(e)}
+  finally{submit.disabled=false;submit.textContent='نشر المشاركة ✦'}
+});}
+
+const EVENT_PHOTO_PREFIX='sumo_event_photos_v2_';
+const eventTypes={'teacher-day':{icon:'🍎',label:'صورة من فعاليات يوم المعلم'},'national-day':{icon:'🇸🇦',label:'صورة من فعاليات اليوم الوطني'},'foundation-day':{icon:'🐎',label:'صورة من فعاليات يوم التأسيس'}};
+async function getEventPhotos(type){try{const saved=await dbGet(EVENT_PHOTO_PREFIX+type);if(Array.isArray(saved))return saved;}catch(e){console.warn(e)}return [];}
+async function renderEventPhotos(type){
+  const gallery=document.getElementById('gallery-'+type);if(!gallery)return;gallery.replaceChildren();
+  const photos=await getEventPhotos(type);
+  if(!photos.length){for(let i=0;i<3;i++){const tile=document.createElement('div');tile.className='event-photo';const caption=document.createElement('div');caption.className='photo-caption';caption.textContent=eventTypes[type].icon+'  '+eventTypes[type].label+' — '+(i+1);tile.appendChild(caption);gallery.appendChild(tile)}return;}
+  photos.forEach(function(photo,index){const tile=document.createElement('div');tile.className='event-photo has-image';const img=document.createElement('img');img.src=photo.data;img.alt=photo.name||eventTypes[type].label;const remove=document.createElement('button');remove.type='button';remove.textContent='حذف الصورة ×';remove.style.cssText='position:absolute;top:9px;left:9px;z-index:2;border:0;border-radius:18px;padding:5px 10px;background:rgba(255,255,255,.92);color:#145b4d;font:inherit;font-size:12px;font-weight:800;cursor:pointer';remove.addEventListener('click',async function(){const items=await getEventPhotos(type);items.splice(index,1);try{await dbSet(EVENT_PHOTO_PREFIX+type,items);await renderEventPhotos(type)}catch(e){alert('تعذر حذف الصورة.');}});tile.append(img,remove);gallery.appendChild(tile)});
 }
+function compressImage(file){return new Promise(function(resolve,reject){const reader=new FileReader();reader.onerror=reject;reader.onload=function(){const img=new Image();img.onerror=reject;img.onload=function(){const max=1600;const scale=Math.min(1,max/Math.max(img.width,img.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',0.78));};img.src=reader.result;};reader.readAsDataURL(file)});}
+async function addEventPhotos(type,files,input){
+  if(!files||!files.length)return;const incoming=Array.from(files).filter(function(f){return f.type.startsWith('image/')});if(!incoming.length){alert('اختاري ملفات صور صالحة.');input.value='';return;}
+  const button=input.parentElement;button.style.opacity='.65';
+  try{const existing=await getEventPhotos(type);if(existing.length+incoming.length>30){alert('يمكن حفظ حتى 30 صورة لكل مناسبة.');return;}
+    for(const file of incoming){const data=await compressImage(file);existing.push({name:file.name,data:data});}
+    await dbSet(EVENT_PHOTO_PREFIX+type,existing);await renderEventPhotos(type);alert('تم حفظ الصور بنجاح في هذا المتصفح.');
+  }catch(err){alert('تعذر حفظ الصور. تأكدي من وجود مساحة كافية وجربي صورًا أخرى أو متصفح Safari/Chrome.');console.error(err)}
+  finally{input.value='';button.style.opacity='1';}
+}
+Object.keys(eventTypes).forEach(function(type){renderEventPhotos(type)});
 renderYadaComments();
-
-
-const EVENT_PHOTO_PREFIX='sumo_event_photos_v1_';
-const eventTypes={
-  'teacher-day':{icon:'🍎',label:'صورة من فعاليات يوم المعلم'},
-  'national-day':{icon:'🇸🇦',label:'صورة من فعاليات اليوم الوطني'},
-  'foundation-day':{icon:'🐎',label:'صورة من فعاليات يوم التأسيس'}
-};
-function getEventPhotos(type){try{return JSON.parse(localStorage.getItem(EVENT_PHOTO_PREFIX+type)||'[]')}catch(e){return []}}
-function renderEventPhotos(type){
-  const gallery=document.getElementById('gallery-'+type); if(!gallery)return;
-  gallery.replaceChildren(); const photos=getEventPhotos(type);
-  if(!photos.length){
-    for(let i=0;i<3;i++){
-      const tile=document.createElement('div');tile.className='event-photo';
-      const caption=document.createElement('div');caption.className='photo-caption';
-      caption.textContent=eventTypes[type].icon+'  '+eventTypes[type].label+' — '+(i+1);
-      tile.appendChild(caption);gallery.appendChild(tile);
-    }
-    return;
-  }
-  photos.forEach(function(photo,index){
-    const tile=document.createElement('div');tile.className='event-photo has-image';
-    const img=document.createElement('img');img.src=photo.data;img.alt=photo.name||eventTypes[type].label;
-    const remove=document.createElement('button');remove.type='button';remove.textContent='حذف الصورة ×';
-    remove.style.cssText='position:absolute;top:9px;left:9px;z-index:2;border:0;border-radius:18px;padding:5px 10px;background:rgba(255,255,255,.92);color:#145b4d;font:inherit;font-size:12px;font-weight:800;cursor:pointer';
-    remove.addEventListener('click',function(){const items=getEventPhotos(type);items.splice(index,1);try{localStorage.setItem(EVENT_PHOTO_PREFIX+type,JSON.stringify(items));renderEventPhotos(type)}catch(e){alert('تعذر تحديث معرض الصور.')}});
-    tile.append(img,remove);gallery.appendChild(tile);
-  });
-}
-function addEventPhotos(type,files,input){
-  if(!files||!files.length)return;
-  const existing=getEventPhotos(type);const incoming=Array.from(files);
-  let processed=0;const maxPhotos=30;
-  if(existing.length+incoming.length>maxPhotos){alert('يمكن حفظ حتى 30 صورة لكل مناسبة.');input.value='';return;}
-  incoming.forEach(function(file){
-    if(!file.type.startsWith('image/')){processed++;return;}
-    const reader=new FileReader();reader.onload=function(e){
-      existing.push({name:file.name,data:e.target.result});processed++;
-      if(processed===incoming.length){
-        try{localStorage.setItem(EVENT_PHOTO_PREFIX+type,JSON.stringify(existing));renderEventPhotos(type)}
-        catch(err){alert('مساحة التخزين في المتصفح لا تكفي. جرّبي صورًا أصغر حجمًا.');}
-        input.value='';
-      }
-    };
-    reader.onerror=function(){processed++;if(processed===incoming.length)input.value='';};reader.readAsDataURL(file);
-  });
-}
-Object.keys(eventTypes).forEach(renderEventPhotos);
 
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';

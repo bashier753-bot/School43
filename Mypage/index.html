@@ -723,7 +723,11 @@ async function getEventPhotos(type) {
   });
   if (error) throw error;
   return (data || []).filter(function(item) {
-    return item.name && item.name !== '.emptyFolderPlaceholder';
+    if (!item.name || item.name === '.emptyFolderPlaceholder') return false;
+    // Hide legacy placeholder/old national-day photos; only show photos uploaded
+    // through the updated site after this change.
+    if (type === 'national-day' && !item.name.startsWith('new-')) return false;
+    return true;
   }).map(function(item) {
     const path = 'events/' + type + '/' + item.name;
     return {
@@ -811,7 +815,8 @@ async function addEventPhotos(type, files, input) {
     for (const file of incoming) {
       if (file.size > 8 * 1024 * 1024) throw new Error('حجم الصورة أكبر من 8 ميجابايت: ' + file.name);
       const extension = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
-      const path = 'events/' + type + '/' + Date.now() + '-' + crypto.randomUUID() + '.' + extension;
+      const prefix = type === 'national-day' ? 'new-' : '';
+      const path = 'events/' + type + '/' + prefix + Date.now() + '-' + crypto.randomUUID() + '.' + extension;
       const { error } = await supabaseClient.storage.from(YADA_BUCKET).upload(path, file, {
         cacheControl: '3600',
         upsert: false,

@@ -432,15 +432,62 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 </section>
 
 <section class="page" id="page-initiatives">
-  <div class="page-title"><h1>المبادرات والأنشطة</h1><p>أفكار تتحول إلى إنجاز</p></div>
-  <div class="section"><div class="container"><div class="cards">
-    <div class="card"><h2>نحو علو وتمكين</h2><p>مبادرة مجتمعية لدعم التميز والتمكين ورفع نواتج التعلم.</p></div>
-    <div class="card"><h2>النسب في حياتنا</h2><p>ربط المفاهيم الرياضية بالحياة اليومية والمواقف الواقعية.</p></div>
-    <div class="card"><h2>الواقع المعزز في التعليم</h2><p>توظيف التقنية والواقع المعزز بطريقة تخدم العملية التعليمية.</p></div>
-    <div class="card"><h2>مبادرات تعليمية</h2><p>مساحات تجمع التعلم والمشاركة والتطبيق العملي.</p></div>
-  </div></div></div>
+  <div class="page-title"><h1>المبادرات والأنشطة</h1><p>اختاري المبادرة لاستعراض صورها وشواهدها.</p></div>
+  <div class="section"><div class="container">
+    <div class="domain-grid program-domain-cards">
+    <a class="card program-link-card" href="#initiative-leadership" onclick="showPage('initiative-leadership');return false;"><div class="domain-icon">🎓</div><h2>الريادة في القدرات والتحصيلي</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
+    <a class="card program-link-card" href="#initiative-platform" onclick="showPage('initiative-platform');return false;"><div class="domain-icon">✦</div><h2>منصة سمو</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
+    <a class="card program-link-card" href="#initiative-nation" onclick="showPage('initiative-nation');return false;"><div class="domain-icon">🇸🇦</div><h2>وطن يجمعنا وأسرة تبني مجداً</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
+    <a class="card program-link-card" href="#initiative-ai-education" onclick="showPage('initiative-ai-education');return false;"><div class="domain-icon">🤖</div><h2>تقنيات المستقبل والذكاء الاصطناعي في التعليم</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
+    <a class="card program-link-card" href="#initiative-school-environment" onclick="showPage('initiative-school-environment');return false;"><div class="domain-icon">🌿</div><h2>تحسين البيئة المدرسية</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
+    </div>
+  </div></div>
 </section>
 
+<section class="page" id="page-initiative-leadership">
+  <div class="page-title"><h1>الريادة في القدرات والتحصيلي</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-leadership',this.files,this)"></label></div></div>
+    <div class="evidence-gallery" id="evidence-gallery-initiative-leadership"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-initiative-platform">
+  <div class="page-title"><h1>منصة سمو</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-platform',this.files,this)"></label></div></div>
+    <div class="evidence-gallery" id="evidence-gallery-initiative-platform"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-initiative-nation">
+  <div class="page-title"><h1>وطن يجمعنا وأسرة تبني مجداً</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-nation',this.files,this)"></label></div></div>
+    <div class="evidence-gallery" id="evidence-gallery-initiative-nation"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-initiative-ai-education">
+  <div class="page-title"><h1>تقنيات المستقبل والذكاء الاصطناعي في التعليم</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-ai-education',this.files,this)"></label></div></div>
+    <div class="evidence-gallery" id="evidence-gallery-initiative-ai-education"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-initiative-school-environment">
+  <div class="page-title"><h1>تحسين البيئة المدرسية</h1><p>صور المبادرة وشواهدها بمقاس A4</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('initiatives')">→ العودة إلى المبادرات والأنشطة</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد المبادرة</h2><p style="color:var(--muted);margin:0">تُعرض الصور بتناسب ورقة A4.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">دخول المالكة 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور A4<input type="file" accept="image/*" multiple onchange="addEvidenceImages('initiative-school-environment',this.files,this)"></label></div></div>
+    <div class="evidence-gallery" id="evidence-gallery-initiative-school-environment"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
 <section class="page" id="page-gallery">
   <div class="page-title"><h1>المجالات</h1><p>اختاري المجال لاستعراض برامجه والشواهد المرتبطة بها.</p></div>
   <div class="section"><div class="container"><div class="domain-grid">
@@ -757,7 +804,8 @@ supabaseClient.auth.onAuthStateChange(function(_event,session){
 // Evidence galleries: each program has its own folder in the public yada-images bucket.
 const evidencePageKeys = [
   'science-1','science-2','sport-1','sport-2','citizenship-1','citizenship-2',
-  'culture-1','culture-2','scout-1','scout-2'
+  'culture-1','culture-2','scout-1','scout-2',
+  'initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'
 ];
 const evidenceRenderVersion = {};
 function renderAllEvidence(){ evidencePageKeys.forEach(function(key){ renderEvidenceImages(key); }); }
@@ -782,13 +830,30 @@ async function renderEvidenceImages(key){
       const sheet=document.createElement('figure');sheet.className='evidence-sheet';
       const img=document.createElement('img');img.src=url;img.alt='شاهد '+file.name;img.loading='lazy';
       img.onerror=function(){sheet.replaceChildren();const err=document.createElement('div');err.className='evidence-empty';err.textContent='تعذر عرض الصورة: '+file.name;sheet.appendChild(err);};
-      sheet.appendChild(img);gallery.appendChild(sheet);
+      sheet.appendChild(img);
+      if(isSiteOwner){
+        const del=document.createElement('button');
+        del.type='button';del.className='delete-photo-btn';del.textContent='حذف الصورة';
+        del.style.cssText='position:absolute;z-index:4;top:9px;left:9px;border:0;border-radius:20px;padding:8px 12px;background:#9b2929;color:#fff;font:inherit;font-weight:800;cursor:pointer';
+        del.addEventListener('click',function(){deleteEvidenceImage(key,file.name);});
+        sheet.appendChild(del);
+      }
+      gallery.appendChild(sheet);
     });
   }catch(error){
     if(evidenceRenderVersion[key]!==version) return;
     console.error('Evidence gallery error ('+key+'):',error);
     gallery.replaceChildren();const msg=document.createElement('div');msg.className='evidence-empty';msg.textContent='تعذر تحميل الشواهد. تحققي من صلاحية SELECT في مساحة yada-images.';gallery.appendChild(msg);
   }
+}
+async function deleteEvidenceImage(key,name){
+  if(!isSiteOwner){alert('حذف الشواهد متاح لمالكة الموقع فقط.');return;}
+  if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
+  const path='evidence/'+key+'/'+name;
+  const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
+  if(error){console.error('Evidence delete error:',error);alert('تعذر حذف الصورة. تحققي من سياسة DELETE في مساحة yada-images.');return;}
+  await renderEvidenceImages(key);
+  alert('تم حذف الصورة.');
 }
 async function addEvidenceImages(key,files,input){
   if(!isSiteOwner){alert('إضافة الشواهد متاحة لمالكة الموقع فقط.');input.value='';return;}
@@ -1062,7 +1127,7 @@ renderYadaComments();
 
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';
-  var allowed=['home','about','programs','impact','yada','initiatives','gallery','contact','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2'];
+  var allowed=['home','about','programs','impact','yada','initiatives','gallery','contact','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'];
   if(!allowed.includes(page)) page='home';
   showPage(page);
 }

@@ -427,6 +427,8 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
       <input id="parentName" name="parentName" type="text" maxlength="80" placeholder="اكتب اسم ولي الأمر" required>
       <label for="parentComment">المشاركة</label>
       <textarea id="parentComment" name="parentComment" maxlength="1500" placeholder="اكتب تعليقك أو اقتراحك هنا..." required></textarea>
+      <label for="parentImage">إرفاق صورة (اختياري)</label>
+      <input id="parentImage" name="parentImage" type="file" accept="image/*">
       <button class="btn yada-submit" type="submit">نشر المشاركة ✦</button>
       <p class="yada-note">يرجى عدم كتابة أرقام الهواتف أو المعلومات الشخصية في التعليقات.</p>
     </form>
@@ -503,6 +505,7 @@ footer{background:#0c4037;color:#fff;padding:38px 20px 23px}
   <div class="footer-bottom">الثانوية الثالثة والأربعون — جميع الحقوق محفوظة 2026</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
@@ -518,66 +521,225 @@ function showPage(page){
   if(location.hash !== '#'+page) history.replaceState(null,'','#'+page);
 }
 
-// IndexedDB provides much more storage than localStorage, especially for event photos.
-const SUMO_DB_NAME='sumo_site_db_v2';
-function openSumoDB(){
-  return new Promise(function(resolve,reject){
-    if(!('indexedDB' in window)){reject(new Error('IndexedDB غير مدعوم'));return;}
-    const request=indexedDB.open(SUMO_DB_NAME,1);
-    request.onupgradeneeded=function(){const db=request.result;if(!db.objectStoreNames.contains('data'))db.createObjectStore('data');};
-    request.onsuccess=function(){resolve(request.result)};
-    request.onerror=function(){reject(request.error||new Error('تعذر فتح قاعدة البيانات'))};
+// Supabase connection for this static HTML site.
+const SUPABASE_URL = 'https://jtrggxngwyhjrrrnercv.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AOfMIAFN8VWXdEXyPtpLQ_0veyVnTu';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const YADA_BUCKET = 'yada-images';
+
+function safeText(value) {
+  return value == null ? '' : String(value);
+}
+
+async function uploadYadaImage(file) {
+  if (!file) return null;
+  if (!file.type || !file.type.startsWith('image/')) {
+    throw new Error('يرجى اختيار ملف صورة صالح.');
+  }
+  if (file.size > 8 * 1024 * 1024) {
+    throw new Error('حجم الصورة أكبر من 8 ميجابايت. اختاري صورة أصغر.');
+  }
+  const extension = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+  const path = 'comments/' + Date.now() + '-' + crypto.randomUUID() + '.' + extension;
+  const { error } = await supabaseClient.storage.from(YADA_BUCKET).upload(path, file, {
+    cacheControl: '3600',
+    upsert: false,
+    contentType: file.type
+  });
+  if (error) throw error;
+  return supabaseClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+async function renderYadaComments() {
+  const list = document.getElementById('commentsList');
+  if (!list) return;
+  list.replaceChildren();
+  const loading = document.createElement('div');
+  loading.className = 'comments-empty';
+  loading.textContent = 'جارٍ تحميل المشاركات…';
+  list.appendChild(loading);
+
+  try {
+    const { data: comments, error } = await supabaseClient
+      .from('yada_comments')
+      .select('id, created_at, guardian_name, comment, image_url')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+
+    list.replaceChildren();
+    if (!comments || !comments.length) {
+      const empty = document.createElement('div');
+      empty.className = 'comments-empty';
+      empty.textContent = 'لا توجد مشاركات حتى الآن. كونوا أول من يشاركنا رأيه!';
+      list.appendChild(empty);
+      return;
+    }
+
+    comments.forEach(function(item) {
+      const card = document.createElement('article');
+      card.className = 'comment-card';
+      const author = document.createElement('div');
+      author.className = 'comment-author';
+      author.textContent = safeText(item.guardian_name) || 'ولي أمر';
+      const body = document.createElement('p');
+      body.textContent = safeText(item.comment);
+      const date = document.createElement('div');
+      date.className = 'comment-date';
+      const parsedDate = item.created_at ? new Date(item.created_at) : null;
+      date.textContent = parsedDate && !Number.isNaN(parsedDate.getTime())
+        ? parsedDate.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '';
+      card.append(author, body);
+      if (item.image_url) {
+        const image = document.createElement('img');
+        image.src = item.image_url;
+        image.alt = 'صورة مرفقة بالمشاركة';
+        image.loading = 'lazy';
+        image.style.cssText = 'display:block;max-width:100%;max-height:360px;object-fit:contain;border-radius:14px;margin:12px 0';
+        card.appendChild(image);
+      }
+      card.appendChild(date);
+      list.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Supabase comments error:', error);
+    list.replaceChildren();
+    const msg = document.createElement('div');
+    msg.className = 'comments-empty';
+    msg.textContent = 'تعذر تحميل المشاركات. تأكدي من إعدادات صلاحيات جدول yada_comments في Supabase ثم أعيدي تحميل الصفحة.';
+    list.appendChild(msg);
+  }
+}
+
+const yadaForm = document.getElementById('yadaForm');
+if (yadaForm) {
+  yadaForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const name = document.getElementById('parentName').value.trim();
+    const comment = document.getElementById('parentComment').value.trim();
+    const imageInput = document.getElementById('parentImage');
+    const imageFile = imageInput && imageInput.files ? imageInput.files[0] : null;
+    if (!name || !comment) {
+      alert('فضلاً اكتبي اسم ولي الأمر والمشاركة.');
+      return;
+    }
+
+    const submit = yadaForm.querySelector('button[type="submit"]');
+    submit.disabled = true;
+    submit.textContent = 'جارٍ نشر المشاركة…';
+    try {
+      const imageUrl = await uploadYadaImage(imageFile);
+      const { error } = await supabaseClient.from('yada_comments').insert([{
+        guardian_name: name,
+        comment: comment,
+        image_url: imageUrl
+      }]);
+      if (error) throw error;
+      yadaForm.reset();
+      await renderYadaComments();
+      alert('تم نشر المشاركة بنجاح.');
+    } catch (error) {
+      console.error('Supabase submit error:', error);
+      alert('تعذر نشر المشاركة. تأكدي من سياسات INSERT في جدول yada_comments وسياسات الرفع في مساحة yada-images، ثم حاولي مجددًا.');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = 'نشر المشاركة ✦';
+    }
   });
 }
-async function dbGet(key){const db=await openSumoDB();return new Promise(function(resolve,reject){const tx=db.transaction('data','readonly');const req=tx.objectStore('data').get(key);req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error)};tx.oncomplete=function(){db.close()};});}
-async function dbSet(key,value){const db=await openSumoDB();return new Promise(function(resolve,reject){const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,key);tx.oncomplete=function(){db.close();resolve()};tx.onerror=function(){db.close();reject(tx.error||new Error('تعذر الحفظ'))};tx.onabort=function(){db.close();reject(tx.error||new Error('تم إلغاء الحفظ'))};});}
 
-const YADA_STORAGE_KEY='sumo_yada_comments_v2';
-async function getYadaComments(){
-  try{const saved=await dbGet(YADA_STORAGE_KEY);if(Array.isArray(saved))return saved;}catch(e){console.warn('تعذر قراءة المشاركات من قاعدة البيانات',e)}
-  // Migrate comments from the previous version when available.
-  try{return JSON.parse(localStorage.getItem('sumo_yada_comments_v1')||'[]')}catch(e){return []}
+// Event galleries use the same public Supabase Storage bucket.
+// Files are saved under events/<event-type>/ and listed for all visitors.
+const eventTypes = {
+  'teacher-day': { icon: '🍎', label: 'صورة من فعاليات يوم المعلم' },
+  'national-day': { icon: '🇸🇦', label: 'صورة من فعاليات اليوم الوطني' },
+  'foundation-day': { icon: '🐎', label: 'صورة من فعاليات يوم التأسيس' }
+};
+async function getEventPhotos(type) {
+  const { data, error } = await supabaseClient.storage.from(YADA_BUCKET).list('events/' + type, {
+    limit: 100,
+    sortBy: { column: 'created_at', order: 'asc' }
+  });
+  if (error) throw error;
+  return (data || []).filter(function(item) {
+    return item.name && item.name !== '.emptyFolderPlaceholder';
+  }).map(function(item) {
+    const path = 'events/' + type + '/' + item.name;
+    return {
+      name: item.name,
+      url: supabaseClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl
+    };
+  });
 }
-async function renderYadaComments(){
-  const list=document.getElementById('commentsList');if(!list)return;
-  list.replaceChildren();
-  try{
-    const comments=await getYadaComments();
-    if(!comments.length){const empty=document.createElement('div');empty.className='comments-empty';empty.textContent='لا توجد مشاركات حتى الآن. كونوا أول من يشاركنا رأيه!';list.appendChild(empty);return;}
-    comments.slice().reverse().forEach(function(item){const card=document.createElement('article');card.className='comment-card';const author=document.createElement('div');author.className='comment-author';author.textContent=item.name;const body=document.createElement('p');body.textContent=item.comment;const date=document.createElement('div');date.className='comment-date';date.textContent=item.date;card.append(author,body,date);list.appendChild(card);});
-  }catch(e){const msg=document.createElement('div');msg.className='comments-empty';msg.textContent='تعذر تحميل المشاركات في هذا المتصفح. جرّبي فتح الملف في متصفح Safari أو Chrome.';list.appendChild(msg)}
+async function renderEventPhotos(type) {
+  const gallery = document.getElementById('gallery-' + type);
+  if (!gallery) return;
+  gallery.replaceChildren();
+  try {
+    const photos = await getEventPhotos(type);
+    if (!photos.length) {
+      for (let i = 0; i < 3; i++) {
+        const tile = document.createElement('div');
+        tile.className = 'event-photo';
+        const caption = document.createElement('div');
+        caption.className = 'photo-caption';
+        caption.textContent = eventTypes[type].icon + '  ' + eventTypes[type].label + ' — ' + (i + 1);
+        tile.appendChild(caption);
+        gallery.appendChild(tile);
+      }
+      return;
+    }
+    photos.forEach(function(photo) {
+      const tile = document.createElement('div');
+      tile.className = 'event-photo has-image';
+      const img = document.createElement('img');
+      img.src = photo.url;
+      img.alt = photo.name || eventTypes[type].label;
+      img.loading = 'lazy';
+      tile.appendChild(img);
+      gallery.appendChild(tile);
+    });
+  } catch (error) {
+    console.error('Supabase event gallery error:', error);
+    const message = document.createElement('div');
+    message.className = 'comments-empty';
+    message.textContent = 'تعذر تحميل صور المناسبة. تحققي من صلاحية عرض الملفات في مساحة yada-images.';
+    gallery.appendChild(message);
+  }
 }
-const yadaForm=document.getElementById('yadaForm');
-if(yadaForm){yadaForm.addEventListener('submit',async function(event){
-  event.preventDefault();
-  const name=document.getElementById('parentName').value.trim();const comment=document.getElementById('parentComment').value.trim();
-  if(!name||!comment){alert('فضلاً اكتبي اسم ولي الأمر والمشاركة.');return;}
-  const submit=yadaForm.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='جارٍ نشر المشاركة…';
-  try{const comments=await getYadaComments();comments.push({name:name,comment:comment,date:new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'})});await dbSet(YADA_STORAGE_KEY,comments);yadaForm.reset();await renderYadaComments();}
-  catch(e){alert('لم نتمكن من حفظ المشاركة في هذا المتصفح. جرّبي فتح الملف في Safari أو Chrome ثم أعيدي المحاولة.');console.error(e)}
-  finally{submit.disabled=false;submit.textContent='نشر المشاركة ✦'}
-});}
-
-const EVENT_PHOTO_PREFIX='sumo_event_photos_v2_';
-const eventTypes={'teacher-day':{icon:'🍎',label:'صورة من فعاليات يوم المعلم'},'national-day':{icon:'🇸🇦',label:'صورة من فعاليات اليوم الوطني'},'foundation-day':{icon:'🐎',label:'صورة من فعاليات يوم التأسيس'}};
-async function getEventPhotos(type){try{const saved=await dbGet(EVENT_PHOTO_PREFIX+type);if(Array.isArray(saved))return saved;}catch(e){console.warn(e)}return [];}
-async function renderEventPhotos(type){
-  const gallery=document.getElementById('gallery-'+type);if(!gallery)return;gallery.replaceChildren();
-  const photos=await getEventPhotos(type);
-  if(!photos.length){for(let i=0;i<3;i++){const tile=document.createElement('div');tile.className='event-photo';const caption=document.createElement('div');caption.className='photo-caption';caption.textContent=eventTypes[type].icon+'  '+eventTypes[type].label+' — '+(i+1);tile.appendChild(caption);gallery.appendChild(tile)}return;}
-  photos.forEach(function(photo,index){const tile=document.createElement('div');tile.className='event-photo has-image';const img=document.createElement('img');img.src=photo.data;img.alt=photo.name||eventTypes[type].label;const remove=document.createElement('button');remove.type='button';remove.textContent='حذف الصورة ×';remove.style.cssText='position:absolute;top:9px;left:9px;z-index:2;border:0;border-radius:18px;padding:5px 10px;background:rgba(255,255,255,.92);color:#145b4d;font:inherit;font-size:12px;font-weight:800;cursor:pointer';remove.addEventListener('click',async function(){const items=await getEventPhotos(type);items.splice(index,1);try{await dbSet(EVENT_PHOTO_PREFIX+type,items);await renderEventPhotos(type)}catch(e){alert('تعذر حذف الصورة.');}});tile.append(img,remove);gallery.appendChild(tile)});
+async function addEventPhotos(type, files, input) {
+  if (!files || !files.length) return;
+  const incoming = Array.from(files).filter(function(file) { return file.type && file.type.startsWith('image/'); });
+  if (!incoming.length) {
+    alert('اختاري ملفات صور صالحة.');
+    input.value = '';
+    return;
+  }
+  const button = input.parentElement;
+  button.style.opacity = '.65';
+  try {
+    for (const file of incoming) {
+      if (file.size > 8 * 1024 * 1024) throw new Error('حجم الصورة أكبر من 8 ميجابايت: ' + file.name);
+      const extension = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+      const path = 'events/' + type + '/' + Date.now() + '-' + crypto.randomUUID() + '.' + extension;
+      const { error } = await supabaseClient.storage.from(YADA_BUCKET).upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+        contentType: file.type
+      });
+      if (error) throw error;
+    }
+    await renderEventPhotos(type);
+    alert('تم رفع الصور إلى مساحة التخزين بنجاح.');
+  } catch (error) {
+    console.error('Supabase image upload error:', error);
+    alert('تعذر رفع الصور. تأكدي من سياسات INSERT وSELECT في مساحة yada-images وأن حجم كل صورة لا يتجاوز 8 ميجابايت.');
+  } finally {
+    input.value = '';
+    button.style.opacity = '1';
+  }
 }
-function compressImage(file){return new Promise(function(resolve,reject){const reader=new FileReader();reader.onerror=reject;reader.onload=function(){const img=new Image();img.onerror=reject;img.onload=function(){const max=1600;const scale=Math.min(1,max/Math.max(img.width,img.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',0.78));};img.src=reader.result;};reader.readAsDataURL(file)});}
-async function addEventPhotos(type,files,input){
-  if(!files||!files.length)return;const incoming=Array.from(files).filter(function(f){return f.type.startsWith('image/')});if(!incoming.length){alert('اختاري ملفات صور صالحة.');input.value='';return;}
-  const button=input.parentElement;button.style.opacity='.65';
-  try{const existing=await getEventPhotos(type);if(existing.length+incoming.length>30){alert('يمكن حفظ حتى 30 صورة لكل مناسبة.');return;}
-    for(const file of incoming){const data=await compressImage(file);existing.push({name:file.name,data:data});}
-    await dbSet(EVENT_PHOTO_PREFIX+type,existing);await renderEventPhotos(type);alert('تم حفظ الصور بنجاح في هذا المتصفح.');
-  }catch(err){alert('تعذر حفظ الصور. تأكدي من وجود مساحة كافية وجربي صورًا أخرى أو متصفح Safari/Chrome.');console.error(err)}
-  finally{input.value='';button.style.opacity='1';}
-}
-Object.keys(eventTypes).forEach(function(type){renderEventPhotos(type)});
+Object.keys(eventTypes).forEach(function(type) { renderEventPhotos(type); });
 renderYadaComments();
 
 function loadFromHash(){

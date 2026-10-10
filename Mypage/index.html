@@ -294,6 +294,9 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 @media(max-width:850px){.student-week-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.student-week-grid{grid-template-columns:1fr}.student-week-head{padding:12px 14px}}
 
+
+/* إخفاء قسم برامجنا من الصفحة الرئيسية فقط مع إبقائه في الكود */
+#page-home .home-programs-hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -343,6 +346,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
       <a class="quick-card" href="#programs" onclick="showPage('programs')"><span class="icon">🎓</span><b>القدرات والتحصيلي</b><small>نصنع مستقبلًا أفضل</small></a>
       <a class="quick-card" href="#initiatives" onclick="showPage('initiatives')"><span class="icon">✦</span><b>المبادرات والأنشطة</b><small>أفكار تُحدث فرقًا</small></a>
       <a class="quick-card" href="#gallery" onclick="showPage('gallery')"><span class="icon">▧</span><b>المجالات</b><small>برامجنا وشواهدنا</small></a>
+      <a class="quick-card" href="#yada" onclick="showPage('yada'); return false;"><span class="icon">🤝</span><b>يدًا بيد</b><small>شراكة مع أولياء الأمور تصنع فرقًا في رحلة الطالبات</small></a>
     </div>
   </div>
 
@@ -365,7 +369,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
     </div>
   </section>
 
-  <section class="section programs">
+  <section class="section programs home-programs-hidden">
     <div class="container">
       <div class="section-head"><div class="eyebrow">مساحات تصنع الفرق</div><h2>برامجنا</h2><p>مجالات أساسية تجمع التعلم والتطبيق والمشاركة في تجربة مدرسية متكاملة.</p></div>
       <div class="program-grid">
@@ -392,7 +396,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
       <div class="section-head"><div class="eyebrow">أفكار تتحول إلى إنجاز</div><h2>أبرز المبادرات</h2><p>تعرّفي على المبادرات والأنشطة في منصة سِمُو.</p></div>
       <div class="initiatives">
         <article class="initiative"><div class="body"><h3>الريادة في القدرات والتحصيلي</h3><p>صور وشواهد المبادرة.</p><a href="#initiative-leadership" onclick="showPage('initiative-leadership');return false;">التفاصيل ←</a></div></article>
-        <article class="initiative"><div class="body"><h3>منصة سمو</h3><p>صور وشواهد المبادرة.</p><a href="#initiative-platform" onclick="showPage('initiative-platform');return false;">التفاصيل ←</a></div></article>
         <article class="initiative"><div class="body"><h3>وطن يجمعنا وأسرة تبني مجداً</h3><p>صور وشواهد المبادرة.</p><a href="#initiative-nation" onclick="showPage('initiative-nation');return false;">التفاصيل ←</a></div></article>
         <article class="initiative"><div class="body"><h3>تقنيات المستقبل والذكاء الاصطناعي في التعليم</h3><p>صور وشواهد المبادرة.</p><a href="#initiative-ai-education" onclick="showPage('initiative-ai-education');return false;">التفاصيل ←</a></div></article>
         <article class="initiative"><div class="body"><h3>تحسين البيئة المدرسية</h3><p>صور وشواهد المبادرة.</p><a href="#initiative-school-environment" onclick="showPage('initiative-school-environment');return false;">التفاصيل ←</a></div></article>

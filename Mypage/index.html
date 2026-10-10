@@ -254,6 +254,42 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 .evidence-empty{padding:28px 20px;text-align:center;color:var(--muted);background:#f7fbf8;border:1px dashed #cfe2d9;border-radius:18px;grid-column:1/-1}
 @media(max-width:600px){.evidence-gallery{grid-template-columns:1fr}.evidence-sheet{max-width:100%}}
 
+
+/* خطة النشاط الطلابي */
+.plan-semester-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:950px;margin:auto}
+.plan-semester-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow);text-align:center}
+.plan-semester-card .plan-icon{width:66px;height:66px;display:grid;place-items:center;border-radius:20px;background:var(--mint);font-size:32px;margin:0 auto 16px}
+.plan-semester-card h2{color:var(--green);margin-bottom:9px}
+.plan-semester-card p{color:var(--muted);margin-bottom:18px}
+.plan-calendar{max-width:1050px;margin:auto}
+.plan-calendar-note{padding:28px;background:#fff;border:1px dashed #b9d5c8;border-radius:20px;text-align:center;color:var(--muted)}
+.plan-calendar-note strong{display:block;color:var(--green);font-size:20px;margin-bottom:8px}
+.plan-placeholder{max-width:760px;margin:0 auto;padding:42px 28px;border-radius:24px;background:linear-gradient(135deg,#e8f3ee,#fbfaf6);border:1px solid var(--line);text-align:center}
+.plan-placeholder .plan-icon{font-size:48px;margin-bottom:12px}
+@media(max-width:650px){.plan-semester-grid{grid-template-columns:1fr}}
+
+
+/* تنسيق تقويم خطة النشاط الطلابي */
+.student-plan-intro{margin:0 0 22px;padding:24px;border-radius:22px;background:linear-gradient(135deg,#0d5145,#176b5a);color:#fff;box-shadow:var(--shadow);text-align:center}
+.student-plan-intro h2{margin:0 0 8px;font-size:clamp(20px,3vw,28px)}
+.student-plan-intro p{margin:0;color:#e0f0e9}
+.student-plan-legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 24px}
+.student-plan-legend span{background:#e9f4ef;color:#14594c;border:1px solid #d4e8de;padding:8px 13px;border-radius:30px;font-size:13px;font-weight:700}
+.student-week-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;direction:rtl}
+.student-week-card{background:#fff;border:1px solid #dce9e2;border-radius:18px;overflow:hidden;box-shadow:0 7px 20px rgba(13,84,67,.07);min-width:0}
+.student-week-head{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#dff1e8;padding:13px 15px;color:#125648}
+.student-week-head strong{font-size:16px}
+.student-week-head time{font-size:12px;font-weight:700;color:#4d7468}
+.student-week-body{padding:16px}
+.student-week-field{font-size:11px;font-weight:800;color:#71857c;margin:0 0 5px}
+.student-week-program{font-size:16px;font-weight:800;color:#174f44;line-height:1.65;margin:0 0 13px}
+.student-week-area{display:inline-block;background:#f6f8f5;border:1px solid #e6eee8;border-radius:10px;padding:7px 10px;color:#4c665d;font-size:12px;margin-bottom:12px}
+.student-week-count{border-top:1px solid #edf1ee;padding-top:10px;display:flex;justify-content:space-between;align-items:center;color:#687b73;font-size:12px}
+.student-week-count b{color:#087e77;font-size:17px}
+.student-plan-note{margin-top:22px;background:#fbfaf6;border:1px dashed #b9d5c8;border-radius:16px;padding:17px;color:#687b73;line-height:1.8}
+@media(max-width:850px){.student-week-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.student-week-grid{grid-template-columns:1fr}.student-week-head{padding:12px 14px}}
+
 </style>
 </head>
 <body>
@@ -275,11 +311,11 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <a href="#home" data-page="home" onclick="showPage('home'); return false;">الرئيسية</a>
   <a href="#about" data-page="about" onclick="showPage('about'); return false;">عن سمو</a>
   <a href="#programs" data-page="programs" onclick="showPage('programs'); return false;">البرامج والمسارات</a>
+  <a href="#student-activity-plan" data-page="student-activity-plan" onclick="showPage('student-activity-plan'); return false;">خطة النشاط الطلابي</a>
   <a href="#gallery" data-page="gallery" onclick="showPage('gallery'); return false;">المجالات</a>
-  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives'); return false;">المبادرات</a>
+  <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives'); return false;">نبني أثر</a>
   <a href="#yada" data-page="yada" class="yada-menu-link" onclick="showPage('yada'); return false;">يداً بيد</a>
   <a href="#events" data-page="events" onclick="showPage('events'); return false;">الايام والمناسبات</a>
-  <a href="#impact" data-page="impact" onclick="showPage('impact'); return false;">نبني اثر</a>
 </aside>
 
 <section class="page active" id="page-home">
@@ -303,7 +339,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
       <a class="quick-card" href="#programs" onclick="showPage('programs')"><span class="icon">🎓</span><b>القدرات والتحصيلي</b><small>نصنع مستقبلًا أفضل</small></a>
       <a class="quick-card" href="#initiatives" onclick="showPage('initiatives')"><span class="icon">✦</span><b>المبادرات والأنشطة</b><small>أفكار تُحدث فرقًا</small></a>
       <a class="quick-card" href="#gallery" onclick="showPage('gallery')"><span class="icon">▧</span><b>المجالات</b><small>برامجنا وشواهدنا</small></a>
-      <a class="quick-card" href="#impact" onclick="showPage('impact')"><span class="icon">🌿</span><b>نبني أثر</b><small>معًا نترك أثرًا</small></a>
     </div>
   </div>
 
@@ -332,7 +367,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
       <div class="program-grid">
         <article class="program"><div class="picon">🎓</div><h3>القدرات والتحصيلي</h3><p>برامج تدريبية وورش عمل لدعم الطالبات ورفع مستوى الاستعداد والمهارات.</p><a href="#programs" onclick="showPage('programs')">المزيد ←</a></article>
         <article class="program"><div class="picon">✦</div><h3>المبادرات والأنشطة</h3><p>مبادرات نوعية ومشاريع إبداعية تعزز المشاركة وتحول الأفكار إلى تجارب.</p><a href="#initiatives" onclick="showPage('initiatives')">المزيد ←</a></article>
-        <article class="program"><div class="picon">🌿</div><h3>نبني أثر</h3><p>مساحة للمبادرات التي تهدف إلى ترسيخ القيم وصناعة أثر مستمر في المجتمع.</p><a href="#impact" onclick="showPage('impact')">اكتشفيها ←</a></article>
       </div>
     </div>
   </section>
@@ -345,7 +379,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
         <img class="impact-logo" src="logo.png" alt="شعار سِمُو">
         <div class="impact-card"><h3>ماذا حققنا؟</h3><p>قصص نجاح وتجارب وممارسات تجمع بين التعلم، المشاركة، وخدمة المجتمع.</p></div>
       </div>
-      <div style="text-align:center;margin-top:25px"><a class="btn" href="#impact" onclick="showPage('impact')">دخول صفحة نبني أثر ←</a></div>
+      <div style="text-align:center;margin-top:25px"><a class="btn" href="#initiatives" onclick="showPage('initiatives')">دخول صفحة نبني أثر ←</a></div>
     </div>
   </section>
 
@@ -366,10 +400,10 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
     <div class="container">
       <div class="section-head gallery-head"><div class="eyebrow">برامجنا وشواهدنا</div><h2>المجالات</h2><p>استكشفي المجالات الخمسة وبرامج كل مجال.</p></div>
       <div class="domain-grid home-domain-grid">
-        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🔬</span><h3>العلوم والتقنية</h3><small>استكشاف المجال والبرامج</small></a>
-        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>⚽</span><h3>الرياضة والصحة</h3><small>استكشاف المجال والبرامج</small></a>
         <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🌱</span><h3>المواطنة والحياة</h3><small>استكشاف المجال والبرامج</small></a>
         <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🎨</span><h3>الثقافة والفنون</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>⚽</span><h3>الرياضة والصحة</h3><small>استكشاف المجال والبرامج</small></a>
+        <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>🔬</span><h3>العلوم والتقنية</h3><small>استكشاف المجال والبرامج</small></a>
         <a class="domain-card" href="#gallery" onclick="showPage('gallery');return false;"><span>⛺</span><h3>النشاط الكشفي</h3><small>استكشاف المجال والبرامج</small></a>
       </div>
       <div style="text-align:center;margin-top:24px"><a class="btn" href="#gallery" onclick="showPage('gallery');return false;">استعراض جميع المجالات ←</a></div>
@@ -422,17 +456,8 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   </div></div></div>
 </section>
 
-<section class="page" id="page-impact">
-  <img class="page-logo" src="img1.png" alt="سِمُو">
-  <div class="page-title"><h1>نبني أثر</h1><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر</p></div>
-  <div class="section"><div class="container"><div class="cards">
-    <div class="card"><h2>نبي أثر</h2><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p><p class="highlight">أثر اليوم إنجاز الغد</p></div>
-    <div class="card"><h3>الأثر</h3><p>نسعى من خلال المبادرات والأنشطة إلى تحويل الأفكار التعليمية إلى ممارسات وتجارب تترك أثرًا مستمرًا.</p></div>
-  </div></div></div>
-</section>
-
 <section class="page" id="page-initiatives">
-  <div class="page-title"><h1>المبادرات والأنشطة</h1><p>اختاري المبادرة لاستعراض صورها وشواهدها.</p></div>
+  <div class="page-title"><h1>نبني أثر</h1><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر</p></div>
   <div class="section"><div class="container">
     <div class="domain-grid program-domain-cards">
     <a class="card program-link-card" href="#initiative-leadership" onclick="showPage('initiative-leadership');return false;"><div class="domain-icon">🎓</div><h2>الريادة في القدرات والتحصيلي</h2><p>صور وشواهد المبادرة.</p><b>عرض الشواهد ←</b></a>
@@ -488,13 +513,61 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
     <div class="evidence-gallery" id="evidence-gallery-initiative-school-environment"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
+<section class="page" id="page-student-activity-plan">
+  <div class="page-title"><h1>خطة النشاط الطلابي</h1><p>خطة النشاط الطلابي للفصلين الدراسيين</p></div>
+  <div class="section"><div class="container">
+    <div class="plan-semester-grid">
+      <article class="plan-semester-card"><div class="plan-icon">📅</div><h2>خطة الفصل الدراسي الأول</h2><p>توزيع أسابيع الفصل الدراسي الأول في صورة تقويم واضح ومنظم.</p><a class="more-btn" href="#student-plan-first" onclick="showPage('student-plan-first');return false;">المزيد ←</a></article>
+      <article class="plan-semester-card"><div class="plan-icon">🗓️</div><h2>خطة الفصل الدراسي الثاني</h2><p>سيتم إتاحة خطة الفصل الدراسي الثاني عند بداية الفصل.</p><a class="more-btn" href="#student-plan-second" onclick="showPage('student-plan-second');return false;">المزيد ←</a></article>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-student-plan-first">
+  <div class="page-title"><h1>خطة الفصل الدراسي الأول</h1><p>تقويم توزيع أسابيع النشاط الطلابي</p></div>
+  <div class="section"><div class="container plan-calendar">
+    <button class="back-events" onclick="showPage('student-activity-plan')">→ العودة إلى خطة النشاط الطلابي</button>
+    <div class="plan-calendar-note"><strong>خطة النشاط الطلابي للمرحلة الثانوية — الفصل الدراسي الأول لعام ١٤٤٨ هـ</strong><p>توزيع أسابيع الفصل الدراسي الأول حسب الخطة المرفقة.</p></div>
+    <div class="student-plan-intro"><h2>تقويم توزيع أسابيع النشاط الطلابي</h2><p>المرحلة الثانوية · الفصل الدراسي الأول · العام ١٤٤٨ هـ</p></div>
+    <div class="student-plan-legend"><span>📅 توزيع أسبوعي</span><span>🌿 المجالات والبرامج</span><span>✦ عدد الحصص حسب الخطة</span></div>
+    <div class="student-week-grid">
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١</strong><time>١٧ - ٣ إلى ٢١ - ٣</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">التطوع الطلابي</p><div class="student-week-count"><span>عدد الحصص</span><b>٦</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٢</strong><time>٢٤ - ٣ إلى ٢٨ - ٣</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">التطوع الطلابي</p><div class="student-week-count"><span>عدد الحصص</span><b>٦</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٣</strong><time>٢ - ٤ إلى ٦ - ٤</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">مهارات طموحة</p><div class="student-week-count"><span>عدد الحصص</span><b>٢</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٤</strong><time>٩ - ٤ إلى ١٣ - ٤</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الأيام والمناسبات</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">اليوم الوطني</p><div class="student-week-count"><span>عدد الحصص</span><b>٤</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٥</strong><time>١٦ - ٤ إلى ٢٠ - ٤</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">إرث وطموح</p><div class="student-week-count"><span>عدد الحصص</span><b>٨</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٦</strong><time>٢٣ - ٤ إلى ٢٧ - ٤</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">إرث وطموح</p><div class="student-week-count"><span>عدد الحصص</span><b>٨</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٧</strong><time>٣٠ - ٤ إلى ٤ - ٥</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">المواطنة والحياة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">إرث وطموح</p><div class="student-week-count"><span>عدد الحصص</span><b>٨</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٨</strong><time>٧ - ٥ إلى ١١ - ٥</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الثقافة والفنون</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">الثقافة الإعلامية</p><div class="student-week-count"><span>عدد الحصص</span><b>٦</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ٩</strong><time>١٤ - ٥ إلى ١٨ - ٥</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الرياضة والصحة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">مهارات الرياضات الإلكترونية</p><div class="student-week-count"><span>عدد الحصص</span><b>٧</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٠</strong><time>٢١ - ٥ إلى ٢٥ - ٥</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">العلوم والتقنية</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">التصاميم العلمية التقنية</p><div class="student-week-count"><span>عدد الحصص</span><b>٧</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١١</strong><time>٢٨ - ٥ إلى ١ - ٦</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">النشاط الكشفي</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">سفير البيئة والمجتمع</p><div class="student-week-count"><span>عدد الحصص</span><b>٥</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٢</strong><time>٥ - ٦ إلى ٩ - ٦</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الأيام والمناسبات</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">اليوم العالمي للتسامح</p><div class="student-week-count"><span>عدد الحصص</span><b>٥ + ٢</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٣</strong><time>١٢ - ٦ إلى ١٦ - ٦</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الأيام والمناسبات</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">اليوم العالمي للإعاقة</p><div class="student-week-count"><span>عدد الحصص</span><b>٢</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٤</strong><time>١٩ - ٦ إلى ٢٣ - ٦</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">النشاط الكشفي</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">أفق الكشفي الواسع</p><div class="student-week-count"><span>عدد الحصص</span><b>٥</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٥</strong><time>٢٦ - ٦ إلى ٣٠ - ٦</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">العلوم والتقنية</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">الذكاء الاصطناعي</p><div class="student-week-count"><span>عدد الحصص</span><b>١٠</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٦</strong><time>٣ - ٧ إلى ٧ - ٧</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الأيام والمناسبات</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">الذكاء الاصطناعي واليوم العالمي للغة العربية</p><div class="student-week-count"><span>عدد الحصص</span><b>١٠ + ١</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٧</strong><time>١٠ - ٧ إلى ١٤ - ٧</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الرياضة والصحة</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">مهارات الرياضات الدفاعية عن النفس</p><div class="student-week-count"><span>عدد الحصص</span><b>٦</b></div></div></article>
+      <article class="student-week-card"><div class="student-week-head"><strong>الأسبوع ١٨</strong><time>١٧ - ٧ إلى ٢١ - ٧</time></div><div class="student-week-body"><p class="student-week-field">المجال</p><span class="student-week-area">الاختبارات</span><p class="student-week-field">البرنامج / النشاط</p><p class="student-week-program">فترة الاختبارات</p><div class="student-week-count"><span>عدد الحصص</span><b>—</b></div></div></article>
+    </div>
+  </div></div>
+</section>
+
+<section class="page" id="page-student-plan-second">
+  <div class="page-title"><h1>خطة الفصل الدراسي الثاني</h1><p>خطة النشاط الطلابي</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('student-activity-plan')">→ العودة إلى خطة النشاط الطلابي</button>
+    <div class="plan-placeholder"><div class="plan-icon">🗓️</div><h2 style="color:var(--green);margin-bottom:12px">ستتاح الخطة في بداية الفصل الدراسي الثاني</h2><p style="color:var(--muted)">سيتم إضافة تفاصيل الخطة عند بداية الفصل الدراسي الثاني.</p></div>
+  </div></div>
+</section>
+
 <section class="page" id="page-gallery">
   <div class="page-title"><h1>المجالات</h1><p>اختاري المجال لاستعراض برامجه والشواهد المرتبطة بها.</p></div>
   <div class="section"><div class="container"><div class="domain-grid">
-    <a class="domain-card" href="#domain-science" onclick="showPage('domain-science');return false;"><span>🔬</span><h2>العلوم والتقنية</h2><p>برامج علمية وتقنية وشواهدها.</p><b>دخول المجال ←</b></a>
-    <a class="domain-card" href="#domain-sport" onclick="showPage('domain-sport');return false;"><span>⚽</span><h2>الرياضة والصحة</h2><p>برامج الرياضة والصحة وشواهدها.</p><b>دخول المجال ←</b></a>
     <a class="domain-card" href="#domain-citizenship" onclick="showPage('domain-citizenship');return false;"><span>🌱</span><h2>المواطنة والحياة</h2><p>برامج المواطنة والحياة وشواهدها.</p><b>دخول المجال ←</b></a>
     <a class="domain-card" href="#domain-culture" onclick="showPage('domain-culture');return false;"><span>🎨</span><h2>الثقافة والفنون</h2><p>برامج الثقافة والفنون وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-sport" onclick="showPage('domain-sport');return false;"><span>⚽</span><h2>الرياضة والصحة</h2><p>برامج الرياضة والصحة وشواهدها.</p><b>دخول المجال ←</b></a>
+    <a class="domain-card" href="#domain-science" onclick="showPage('domain-science');return false;"><span>🔬</span><h2>العلوم والتقنية</h2><p>برامج علمية وتقنية وشواهدها.</p><b>دخول المجال ←</b></a>
     <a class="domain-card" href="#domain-scout" onclick="showPage('domain-scout');return false;"><span>⛺</span><h2>النشاط الكشفي</h2><p>برامج النشاط الكشفي وشواهدها.</p><b>دخول المجال ←</b></a>
   </div></div></div>
 </section>
@@ -526,8 +599,9 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('gallery')">→ العودة إلى المجالات</button>
     <div class="cards program-domain-cards">
-      <a class="card program-link-card" href="#evidence-citizenship-1" onclick="showPage('evidence-citizenship-1');return false;"><div class="domain-icon">🌱</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
-      <a class="card program-link-card" href="#evidence-citizenship-2" onclick="showPage('evidence-citizenship-2');return false;"><div class="domain-icon">🌱</div><h2>برنامج ............</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-citizenship-1" onclick="showPage('evidence-citizenship-1');return false;"><div class="domain-icon">🌱</div><h2>التطوع الطلابي</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-citizenship-2" onclick="showPage('evidence-citizenship-2');return false;"><div class="domain-icon">🌱</div><h2>مهارات طموحة</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
+      <a class="card program-link-card" href="#evidence-citizenship-3" onclick="showPage('evidence-citizenship-3');return false;"><div class="domain-icon">🌱</div><h2>إرث وطموح</h2><p>اضغطي للدخول إلى شواهد البرنامج.</p><b>عرض الشواهد ←</b></a>
     </div>
   </div></div>
 </section>
@@ -587,7 +661,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 </section>
 
 <section class="page" id="page-evidence-citizenship-1">
-  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
+  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — التطوع الطلابي</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
     <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-1',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-1"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
@@ -595,10 +669,18 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 </section>
 
 <section class="page" id="page-evidence-citizenship-2">
-  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — برنامج ............</p></div>
+  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — مهارات طموحة</p></div>
   <div class="section"><div class="container">
     <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
     <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-2',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-2"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="page-evidence-citizenship-3">
+  <div class="page-title"><h1>الشواهد</h1><p>المواطنة والحياة — مهارات طموحة</p></div>
+  <div class="section"><div class="container">
+    <button class="back-events" onclick="showPage('domain-citizenship')">→ العودة إلى برامج المجال</button>
+    <div class="evidence-toolbar"><div><h2 style="color:var(--green);margin:0 0 6px">شواهد البرنامج</h2></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="owner-login-btn" type="button" onclick="openOwnerLogin()">تسجيل الدخول 🔒</button><button class="owner-logout-btn owner-only" type="button" onclick="ownerLogout()">تسجيل الخروج</button><label class="evidence-upload-label">＋ إضافة صور الشواهد<input type="file" accept="image/*" multiple onchange="addEvidenceImages('citizenship-3',this.files,this)"></label></div></div><div class="evidence-gallery" id="evidence-gallery-citizenship-3"><div class="evidence-empty">جارٍ تحميل الشواهد…</div></div>
   </div></div>
 </section>
 
@@ -792,7 +874,7 @@ supabaseClient.auth.onAuthStateChange(function(_event,session){
 
 // Evidence galleries: each program has its own folder in the public yada-images bucket.
 const evidencePageKeys = [
-  'science-1','science-2','sport-1','sport-2','citizenship-1','citizenship-2',
+  'science-1','science-2','sport-1','sport-2','citizenship-1','citizenship-2','citizenship-3',
   'culture-1','culture-2','scout-1','scout-2',
   'initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'
 ];
@@ -1116,7 +1198,8 @@ renderYadaComments();
 
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';
-  var allowed=['home','about','programs','impact','yada','initiatives','gallery','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment'];
+  if(page==='impact') page='initiatives';
+  var allowed=['home','about','programs','yada','initiatives','gallery','events','teacher-day','national-day','foundation-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-citizenship-3','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment','student-activity-plan','student-plan-first','student-plan-second'];
   if(!allowed.includes(page)) page='home';
   showPage(page);
 }

@@ -1290,5 +1290,32 @@ function loadFromHash(){
 window.addEventListener('hashchange',loadFromHash);
 window.addEventListener('load',loadFromHash);
 </script>
+
+<style id="announcement-modal-style">
+#siteAnnouncementOverlay{position:fixed;inset:0;z-index:99999;background:rgba(8,35,29,.78);display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
+#siteAnnouncementOverlay[hidden]{display:none!important}
+#siteAnnouncementBox{position:relative;width:min(92vw,760px);max-height:92vh;background:#fff;border:1px solid #d6e8df;border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.28);padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px;overflow:auto}
+#siteAnnouncementLabel{align-self:flex-start;background:#155e50;color:#fff;font-weight:800;font-size:1.15rem;padding:8px 22px;border-radius:999px}
+#siteAnnouncementImage{display:block;max-width:100%;max-height:72vh;object-fit:contain;border-radius:12px}
+#siteAnnouncementClose{position:absolute;top:12px;left:12px;width:44px;height:44px;border:0;border-radius:50%;background:#155e50;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 14px #0002;z-index:2}
+#siteAnnouncementClose:hover{background:#0d473c}
+@media(max-width:600px){#siteAnnouncementBox{padding:14px;border-radius:18px}#siteAnnouncementImage{max-height:75vh}#siteAnnouncementLabel{font-size:1rem;padding:7px 16px}}
+</style>
+<div id="siteAnnouncementOverlay" role="dialog" aria-modal="true" aria-label="إعلان الموقع">
+  <div id="siteAnnouncementBox">
+    <button id="siteAnnouncementClose" type="button" aria-label="إغلاق الإعلان" title="إغلاق">×</button>
+    <div id="siteAnnouncementLabel">إعلان</div>
+    <img id="siteAnnouncementImage" src="E.jpg" alt="إعلان الموقع" onerror="this.alt='تعذر تحميل صورة الإعلان. تأكدي من وجود الملف E.jpg بجانب index.html.';this.style.minHeight='120px';this.style.maxHeight='180px';this.style.width='100%';this.style.objectFit='contain';this.style.background='#f3f7f4';">
+  </div>
+</div>
+<script id="site-announcement-script">
+(function(){
+  var overlay=document.getElementById('siteAnnouncementOverlay');
+  var close=document.getElementById('siteAnnouncementClose');
+  function closeAnnouncement(){overlay.hidden=true;document.body.style.overflow='';}
+  if(overlay){document.body.style.overflow='hidden';close.addEventListener('click',closeAnnouncement);overlay.addEventListener('click',function(e){if(e.target===overlay)closeAnnouncement();});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!overlay.hidden)closeAnnouncement();});}
+})();
+</script>
+
 </body>
 </html>

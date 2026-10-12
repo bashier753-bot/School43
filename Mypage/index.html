@@ -1204,9 +1204,9 @@ async function renderEvidenceImages(key){
     const {data,error}=await supabaseClient.storage.from(YADA_BUCKET).list(folder,{limit:200,sortBy:{column:'created_at',order:'asc'}});
     if(error) throw error;
     if(evidenceRenderVersion[key]!==version) return;
-    const files=(data||[]).filter(function(item){return item.name && item.name!=='.emptyFolderPlaceholder' && item.id;});
+    const files=(data||[]).filter(function(item){return item && item.name && item.name!=='.emptyFolderPlaceholder' && !item.name.endsWith('/');});
     gallery.replaceChildren();
-    if(!files.length){const empty=document.createElement('div');empty.className='evidence-empty';empty.textContent=isSiteOwner?'لا توجد شواهد بعد. استخدمي زر «إضافة صور الشواهد» لرفع الصور.':'لا توجد شواهد مضافة لهذا البرنامج حتى الآن.';gallery.appendChild(empty);return;}
+    if(!files.length){const empty=document.createElement('div');empty.className='evidence-empty';empty.textContent=isSiteOwner?'لم يُعثر على صور داخل هذا المجلد. إذا كانت الصور تظهر للزوار فقط، تحققي من سياسات عرض الملفات في Supabase Storage.':'لا توجد شواهد مضافة لهذا البرنامج حتى الآن.';gallery.appendChild(empty);return;}
     files.forEach(function(file){
       const path=folder+'/'+file.name;
       const url=supabaseClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl;

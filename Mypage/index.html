@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سِمُو | الثانوية الثالثة والأربعون</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;600;700;800;900&display=swap');
 :root{
   --green:#145b4d; --green2:#1f7663; --deep:#0d4037;
   --mint:#e7f2ed; --mint2:#f3f8f5; --gold:#c59b55;
@@ -15,6 +15,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:Cairo,Tahoma,Arial,sans-serif;background:var(--cream);color:var(--text);line-height:1.9}
+/* خط عناوين أحدث وأوضح */
+h1,h2,h3,h4,h5,h6,.page-title,.section-title,.hero-title,.section-heading{font-family:Tajawal,Cairo,Tahoma,Arial,sans-serif;font-weight:800;letter-spacing:0;line-height:1.45}
+.brand,.drawer a,.nav-link{font-family:Tajawal,Cairo,Tahoma,Arial,sans-serif}
 a{text-decoration:none;color:inherit}
 button{font:inherit}
 .header{position:fixed;top:0;right:0;left:0;height:74px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:1000}
@@ -101,10 +104,11 @@ linear-gradient(135deg,#f9fbf8,#eaf4ef)}
 .number:last-child{border-left:0}
 .number strong{display:block;font-size:34px}
 .number span{color:#d7ebe5;font-size:13px}
-.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.quote{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 9px 24px rgba(20,91,77,.06)}
-.quote p{font-size:14px;color:var(--muted)}
-.quote b{display:block;margin-top:12px;color:var(--green);font-size:12px}
+.testimonials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.testimonials .quote{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px;box-shadow:0 5px 14px rgba(20,91,77,.045)}
+.testimonials .quote p{font-size:11px;line-height:1.65;color:var(--muted);margin:0}
+.testimonials .quote b{display:block;margin-top:7px;color:var(--green);font-size:10px;line-height:1.5}
+@media(max-width:700px){.testimonials{gap:8px}.testimonials .quote{padding:10px}.testimonials .quote p{font-size:10px}.testimonials .quote b{font-size:9px}}
 .page-title{text-align:center;padding:68px 20px 45px;background:linear-gradient(135deg,#e8f3ee,#fbfaf6)}
 .page-title h1{font-size:44px;color:var(--green)}
 .page-title p{color:var(--muted)}
@@ -304,6 +308,26 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 .initiative-doc-card .evidence-toolbar{align-items:center;gap:12px;margin-bottom:16px}
 .initiative-doc-card .evidence-toolbar p{margin:0;color:var(--muted,#6c817b)}
 @media(max-width:760px){.initiative-doc-grid{grid-template-columns:1fr}.initiative-doc-card{padding:16px}}
+
+/* تحسين ترويسة صفحات الأقسام لتكون أوضح وأغنى بالألوان */
+.page-title{
+  position:relative;
+  overflow:hidden;
+  padding:76px 20px 54px;
+  background:
+    radial-gradient(circle at 12% 25%, rgba(197,155,85,.24), transparent 25%),
+    radial-gradient(circle at 88% 70%, rgba(31,118,99,.20), transparent 30%),
+    linear-gradient(135deg,#d7ebe2 0%,#e8f3ed 48%,#f6f1e5 100%);
+  border-bottom:1px solid #c9ded4;
+}
+.page-title:after{
+  content:""; position:absolute; bottom:0; right:0; left:0; height:5px;
+  background:linear-gradient(90deg,#c59b55,#1f7663,#145b4d);
+}
+.page-title h1{color:#104f43;text-shadow:0 1px 0 rgba(255,255,255,.65);font-weight:800}
+.page-title p{color:#49665f;font-weight:500}
+@media(max-width:600px){.page-title{padding:58px 16px 40px}.page-title h1{font-size:clamp(30px,8vw,40px)}}
+
 </style>
 </head>
 <body>
@@ -324,7 +348,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   <h3>قائمة سِمُو</h3>
   <a href="#home" data-page="home" onclick="showPage('home'); return false;">الرئيسية</a>
   <a href="#about" data-page="about" onclick="showPage('about'); return false;">عن سمو</a>
-  <a href="#programs" data-page="programs" onclick="showPage('programs'); return false;">البرامج والمسارات</a>
   <a href="#student-activity-plan" data-page="student-activity-plan" onclick="showPage('student-activity-plan'); return false;">خطة النشاط الطلابي</a>
   <a href="#gallery" data-page="gallery" onclick="showPage('gallery'); return false;">المجالات</a>
   <a href="#initiatives" data-page="initiatives" onclick="showPage('initiatives'); return false;">نبني أثر</a>
@@ -350,7 +373,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
 
   <div class="quick">
     <div class="quick-grid">
-      <a class="quick-card" href="#programs" onclick="showPage('programs')"><span class="icon">🎓</span><b>القدرات والتحصيلي</b><small>نصنع مستقبلًا أفضل</small></a>
       <a class="quick-card" href="#initiatives" onclick="showPage('initiatives')"><span class="icon">✦</span><b>المبادرات والأنشطة</b><small>أفكار تُحدث فرقًا</small></a>
       <a class="quick-card" href="#gallery" onclick="showPage('gallery')"><span class="icon">▧</span><b>المجالات</b><small>برامجنا وشواهدنا</small></a>
       <a class="quick-card" href="#yada" onclick="showPage('yada'); return false;"><span class="icon">🤝</span><b>يدًا بيد</b><small>شراكة مع أولياء الأمور تصنع فرقًا في رحلة الطالبات</small></a>
@@ -376,15 +398,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
     </div>
   </section>
 
-  <section class="section programs home-programs-hidden">
-    <div class="container">
-      <div class="section-head"><div class="eyebrow">مساحات تصنع الفرق</div><h2>برامجنا</h2><p>مجالات أساسية تجمع التعلم والتطبيق والمشاركة في تجربة مدرسية متكاملة.</p></div>
-      <div class="program-grid">
-        <article class="program"><div class="picon">🎓</div><h3>القدرات والتحصيلي</h3><p>برامج تدريبية وورش عمل لدعم الطالبات ورفع مستوى الاستعداد والمهارات.</p><a href="#programs" onclick="showPage('programs')">المزيد ←</a></article>
-        <article class="program"><div class="picon">✦</div><h3>المبادرات والأنشطة</h3><p>مبادرات نوعية ومشاريع إبداعية تعزز المشاركة وتحول الأفكار إلى تجارب.</p><a href="#initiatives" onclick="showPage('initiatives')">المزيد ←</a></article>
-      </div>
-    </div>
-  </section>
 
   <section class="section impact">
     <div class="container">
@@ -473,15 +486,7 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
   </div></div>
 </section>
 
-<section class="page" id="page-programs">
-  <div class="page-title"><h1>البرامج والمسارات</h1><p>مساحات للتعلم والتطوير والإنجاز</p></div>
-  <div class="section"><div class="container"><div class="cards">
-    <div class="card"><h2>القدرات والتحصيلي</h2><p>برامج تدريبية وورش عمل لدعم الطالبات ورفع مستوى الاستعداد والمهارات.</p></div>
-    <div class="card"><h2>المبادرات والأنشطة</h2><p>مبادرات نوعية ومشاريع إبداعية تعزز المشاركة وتحول الأفكار إلى تجارب.</p></div>
-    <div class="card"><h2>نبني أثر</h2><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر.</p></div>
-    <div class="card"><h2>يدًا بيد</h2><p>مساحة للتعاون والمشاركة وبناء تجارب تعليمية ومجتمعية مشتركة.</p></div>
-  </div></div></div>
-</section>
+
 
 <section class="page" id="page-initiatives">
   <div class="page-title"><h1>نبني أثر</h1><p>مبادرات عطاء هدفها تعليم متميز وقيم راسخة ليبقى الأثر</p></div>
@@ -1102,7 +1107,6 @@ body.owner-mode .evidence-upload-label{display:inline-flex}
     <div class="footer-links">
       <a href="#home" onclick="showPage('home')">الرئيسية</a>
       <a href="#about" onclick="showPage('about')">عن سِمُو</a>
-      <a href="#programs" onclick="showPage('programs')">البرامج</a>
       <a href="#yada" onclick="showPage('yada')">يدًا بيد</a>
       <a href="#events" onclick="showPage('events')">الأيام والمناسبات</a>
       <a href="#initiatives" onclick="showPage('initiatives')">المبادرات</a>
@@ -1494,7 +1498,7 @@ renderYadaComments('الصف الثالث ثانوي', 'commentsList-yada-third'
 function loadFromHash(){
   var page=location.hash.replace('#','')||'home';
   if(page==='impact') page='initiatives';
-  var allowed=['home','about','programs','yada','yada-first','yada-second','yada-third','initiatives','gallery','events','teacher-day','national-day','foundation-day','tolerance-day','disability-day','arabic-language-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-citizenship-3','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment','initiative-quran-companion','initiative-tumouh-platform','initiative-itqan-platform','student-activity-plan','student-plan-first','student-plan-second'];
+  var allowed=['home','about','yada','yada-first','yada-second','yada-third','initiatives','gallery','events','teacher-day','national-day','foundation-day','tolerance-day','disability-day','arabic-language-day','domain-science','domain-sport','domain-citizenship','domain-culture','domain-scout','evidence-science-1','evidence-science-2','evidence-sport-1','evidence-sport-2','evidence-citizenship-1','evidence-citizenship-2','evidence-citizenship-3','evidence-culture-1','evidence-culture-2','evidence-scout-1','evidence-scout-2','initiative-leadership','initiative-platform','initiative-nation','initiative-ai-education','initiative-school-environment','initiative-quran-companion','initiative-tumouh-platform','initiative-itqan-platform','student-activity-plan','student-plan-first','student-plan-second'];
   if(!allowed.includes(page)) page='home';
   showPage(page);
 }
@@ -1511,6 +1515,13 @@ window.addEventListener('load',loadFromHash);
 #siteAnnouncementClose{position:absolute;top:12px;left:12px;width:44px;height:44px;border:0;border-radius:50%;background:#155e50;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 14px #0002;z-index:2}
 #siteAnnouncementClose:hover{background:#0d473c}
 @media(max-width:600px){#siteAnnouncementBox{padding:14px;border-radius:18px}#siteAnnouncementImage{max-height:75vh}#siteAnnouncementLabel{font-size:1rem;padding:7px 16px}}
+
+/* Compact testimonial cards */
+.testimonials{gap:6px !important}
+.testimonials .quote{padding:7px 9px !important;border-radius:9px !important;box-shadow:none !important}
+.testimonials .quote p{font-size:9px !important;line-height:1.4 !important}
+.testimonials .quote b{font-size:8px !important;line-height:1.3 !important;margin-top:4px !important}
+.testimonials + .subsection-title{margin-top:16px !important}
 </style>
 <div id="siteAnnouncementOverlay" role="dialog" aria-modal="true" aria-label="إعلان الموقع">
   <div id="siteAnnouncementBox">

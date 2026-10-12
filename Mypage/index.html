@@ -1149,9 +1149,19 @@ function updateOwnerUI(){
   renderAllEvidence();
 }
 async function checkOwnerSession(){
-  const {data:{session}} = await supabaseClient.auth.getSession();
-  isSiteOwner=!!(session && session.user && session.user.id===OWNER_UID);
-  if(session && session.user && !isSiteOwner){await supabaseClient.auth.signOut();}
+  try {
+    const {data, error} = await supabaseClient.auth.getSession();
+    if(error) throw error;
+    const session = data && data.session;
+    isSiteOwner = !!(session && session.user && session.user.id === OWNER_UID);
+    if(session && session.user && !isSiteOwner){
+      console.warn('Signed-in account is not the configured site owner.');
+      await supabaseClient.auth.signOut();
+    }
+  } catch(error) {
+    console.error('Owner session check failed:', error);
+    isSiteOwner = false;
+  }
   updateOwnerUI();
 }
 async function ownerLogout(){await supabaseClient.auth.signOut();isSiteOwner=false;updateOwnerUI();alert('تم تسجيل الخروج بنجاح.')}
@@ -1167,8 +1177,9 @@ ownerLoginForm.addEventListener('submit',async function(event){
   isSiteOwner=true;closeOwnerLogin();ownerLoginForm.reset();updateOwnerUI();alert('أهلًا بكِ، يمكنك الآن إضافة الصور وحذفها.');
 });
 supabaseClient.auth.onAuthStateChange(function(_event,session){
+  // Update the owner controls whenever Supabase restores or changes the session.
   isSiteOwner=!!(session && session.user && session.user.id===OWNER_UID);
-  updateOwnerUI();
+  queueMicrotask(function(){ updateOwnerUI(); });
 });
 
 
@@ -1215,7 +1226,7 @@ async function renderEvidenceImages(key){
   }catch(error){
     if(evidenceRenderVersion[key]!==version) return;
     console.error('Evidence gallery error ('+key+'):',error);
-    gallery.replaceChildren();const msg=document.createElement('div');msg.className='evidence-empty';msg.textContent='تعذر تحميل الشواهد. تحققي من صلاحية SELECT في مساحة yada-images.';gallery.appendChild(msg);
+    gallery.replaceChildren();const msg=document.createElement('div');msg.className='evidence-empty';msg.textContent='تعذر تحميل الشواهد. تحققي من صلاحية عرض الملفات (SELECT) في مساحة yada-images، ثم أعيدي تحميل الصفحة.';gallery.appendChild(msg);
   }
 }
 async function deleteEvidenceImage(key,name){
@@ -1240,7 +1251,7 @@ async function addEvidenceImages(key,files,input){
       const {error}=await supabaseClient.storage.from(YADA_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});
       if(error) throw error;
     }
-    await renderEvidenceImages(key);alert('تم رفع صور الشواهد بنجاح. تم عرضها في صفحات الزوار.');
+    await renderEvidenceImages(key); updateOwnerUI(); alert('تم رفع الصور. إذا لم تظهر أزرار الحذف، سجّلي الخروج ثم ادخلي بحساب المالكة الصحيح.');
   }catch(error){console.error('Evidence upload error:',error);alert('تعذر رفع الصور. تأكدي من سياسة INSERT في مساحة yada-images وأن حجم كل صورة لا يتجاوز 8 ميجابايت.');}
   finally{input.value='';label.style.opacity='1';}
 }

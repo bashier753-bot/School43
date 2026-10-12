@@ -1235,10 +1235,29 @@ async function deleteEvidenceImage(key,name){
   if(!isSiteOwner){alert('حذف الشواهد متاح للحساب المخوّل فقط.');return;}
   if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
   const path='evidence/'+key+'/'+name;
-  const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
-  if(error){console.error('Evidence delete error:',error);alert('تعذر حذف الصورة. تحققي من سياسة DELETE في مساحة yada-images.');return;}
-  await renderEvidenceImages(key);
-  alert('تم حذف الصورة.');
+  const gallery=document.getElementById('evidence-gallery-'+key);
+  const targetButton=gallery ? Array.from(gallery.querySelectorAll('.delete-photo-btn')).find(function(button){return button.parentElement && button.parentElement.querySelector('img') && button.parentElement.querySelector('img').alt==='شاهد '+name;}) : null;
+  if(targetButton){targetButton.disabled=true;targetButton.textContent='جارٍ الحذف…';}
+  try{
+    const {data,error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
+    if(error) throw error;
+    // Verify deletion with an authenticated Storage listing; remove() may return no error
+    // when RLS silently filters the requested object.
+    const {data:remaining,error:verifyError}=await supabaseClient.storage.from(YADA_BUCKET).list('evidence/'+key,{limit:200,search:name});
+    if(verifyError) throw verifyError;
+    const stillExists=(remaining||[]).some(function(item){return item && item.name===name;});
+    if(stillExists){
+      if(targetButton){targetButton.disabled=false;targetButton.textContent='حذف الصورة';}
+      alert('لم تُحذف الصورة فعليًا. غالبًا سياسة DELETE في Supabase Storage لا تسمح لحساب المالكة بحذف هذا المسار. نحتاج تعديل سياسة الحذف لتسمح لحساب المالكة فقط.');
+      return;
+    }
+    await renderEvidenceImages(key);
+    alert('تم حذف الصورة نهائيًا.');
+  }catch(error){
+    console.error('Evidence delete error:',error);
+    if(targetButton){targetButton.disabled=false;targetButton.textContent='حذف الصورة';}
+    alert('تعذر التحقق من حذف الصورة. تحققي من سياسة DELETE وSELECT في Supabase Storage ثم حاولي مرة أخرى.');
+  }
 }
 async function addEvidenceImages(key,files,input){
   if(!isSiteOwner){alert('إضافة الشواهد متاحة للحساب المخوّل فقط.');input.value='';return;}

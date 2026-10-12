@@ -1137,6 +1137,8 @@ function showPage(page){
 const SUPABASE_URL = 'https://jtrggxngwyhjrrrnercv.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AOfMIAFN8VW0XdEXyPtpLQ_0veyVnTu';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+// Public read-only client: keeps gallery listing on the anon role even while the owner is signed in.
+const supabasePublicClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
 const YADA_BUCKET = 'yada-images';
 const OWNER_UID = '5bdb0143-02da-41a7-85b7-a0eba6485434';
 let isSiteOwner = false;
@@ -1201,7 +1203,7 @@ async function renderEvidenceImages(key){
   const loading=document.createElement('div'); loading.className='evidence-empty'; loading.textContent='جارٍ تحميل الشواهد…'; gallery.appendChild(loading);
   try{
     const folder='evidence/'+key;
-    const {data,error}=await supabaseClient.storage.from(YADA_BUCKET).list(folder,{limit:200,sortBy:{column:'created_at',order:'asc'}});
+    const {data,error}=await supabasePublicClient.storage.from(YADA_BUCKET).list(folder,{limit:200,sortBy:{column:'created_at',order:'asc'}});
     if(error) throw error;
     if(evidenceRenderVersion[key]!==version) return;
     const files=(data||[]).filter(function(item){return item && item.name && item.name!=='.emptyFolderPlaceholder' && !item.name.endsWith('/');});

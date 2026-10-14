@@ -1490,7 +1490,7 @@ const eventTypes = {
   'arabic-language-day': { icon: '📚', label: 'صورة من فعاليات اليوم العالمي للغة العربية' }
 };
 async function getEventPhotos(type) {
-  const { data, error } = await supabaseClient.storage.from(YADA_BUCKET).list('events/' + type, {
+  const { data, error } = await supabasePublicClient.storage.from(YADA_BUCKET).list('events/' + type, {
     limit: 100,
     sortBy: { column: 'created_at', order: 'asc' }
   });
@@ -1505,7 +1505,7 @@ async function getEventPhotos(type) {
     const path = 'events/' + type + '/' + item.name;
     return {
       name: item.name,
-      url: supabaseClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl
+      url: supabasePublicClient.storage.from(YADA_BUCKET).getPublicUrl(path).data.publicUrl
     };
   });
 }
@@ -1569,7 +1569,7 @@ async function deleteEventPhoto(type, name) {
   if(!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟ لا يمكن التراجع عن الحذف.')) return;
   const path='events/'+type+'/'+name;
   const {error}=await supabaseClient.storage.from(YADA_BUCKET).remove([path]);
-  if(error){console.error('Supabase image delete error:',error);alert('تعذر حذف الصورة. تحققي من سياسة DELETE في مساحة yada-images.');return;}
+  if(error){console.error('Supabase image delete error:',error);alert('تعذر حذف الصورة. يلزم تفعيل سياسة DELETE للمالك على مجلد events في مساحة yada-images.');return;}
   await renderEventPhotos(type);
   alert('تم حذف الصورة.');
 }
